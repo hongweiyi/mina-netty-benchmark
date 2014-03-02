@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>jmeter-mina-netty-test</groupId>
+    <groupId>com.hongweiyi.jmeter</groupId>
     <artifactId>jmeter-mina-netty-test</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
 
     <properties>
         <netty3.version>3.8.0.Final</netty3.version>
@@ -55,6 +55,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
