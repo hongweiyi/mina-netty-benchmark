@@ -13,3 +13,4 @@ Usage
 - `mv target/jmeter-mina-netty-benchmark-1.2.jar $JMETER_HOME/lib/ext`
 - `mv your_netty_or_mina_lib $JMETER_HOME/lib/ext`
 - enjoy the jmeter journey 
+
