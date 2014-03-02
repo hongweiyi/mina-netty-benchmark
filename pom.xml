@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.hongweiyi.jmeter</groupId>
-    <artifactId>jmeter-mina-netty-test</artifactId>
+    <artifactId>jmeter-mina-netty-benchmark</artifactId>
     <version>1.2</version>
 
     <properties>
