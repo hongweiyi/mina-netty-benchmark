@@ -37,3 +37,18 @@ Mina / Netty version
 ---
 The relatively new version of mina3(3.0.0-M2), netty3(3.8.0.Final) and netty4(4.0.17.Final). you can choose the version you prefer.
 
+Version
+===
+
+1.2.1
+---
+* add async send mechanism
+* remove unnecessary print
+
+1.2.2
+---
+- fix some problems
+    * jmeter Aggregate Report results not to stable
+    * optimize Label in Aggreate Report
+    * extract some paramters
+

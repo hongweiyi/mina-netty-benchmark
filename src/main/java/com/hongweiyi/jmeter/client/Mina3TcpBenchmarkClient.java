@@ -56,7 +56,13 @@ public class Mina3TcpBenchmarkClient extends BenchmarkClient {
             @Override
             public void messageReceived(IoSession session, Object message) {
                 if (message instanceof ByteBuffer) {
-                    clientCallback.receive();
+                    ByteBuffer buffer = (ByteBuffer)message;
+                    int length = buffer.remaining();
+                    while (length-- > 0) { // server responses only one byte
+                        clientCallback.receive();
+                    }
+                } else {
+                    throw new IllegalArgumentException(message.getClass().getName());
                 }
             }
 

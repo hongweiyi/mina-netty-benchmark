@@ -3,6 +3,7 @@ package com.hongweiyi.jmeter.client;
 
 import com.hongweiyi.jmeter.RecvCounterCallback;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.buffer.UnpooledByteBufAllocator;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -51,7 +52,15 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
 
                     @Override
                     public void channelRead(io.netty.channel.ChannelHandlerContext ctx, Object message) throws Exception {
-                        clientCallback.receive();
+                        if (message instanceof ByteBuf) {
+                            ByteBuf buffer = (ByteBuf)message;
+                            long length = buffer.readableBytes();
+                            while (length-- > 0) { // server responses only one byte
+                                clientCallback.receive();
+                            }
+                        } else {
+                            throw new IllegalArgumentException(message.getClass().getName());
+                        }
                     }
 
                     @Override

@@ -32,7 +32,11 @@ public class Netty3TcpBenchmarkClient extends BenchmarkClient {
                     @Override
                     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
                         if (e.getMessage() instanceof ChannelBuffer) {
-                            clientCallback.receive();
+                            ChannelBuffer buffer = (ChannelBuffer) e.getMessage();
+                            int length = buffer.readableBytes();
+                            while (length-- > 0) { // server responses only one byte
+                                clientCallback.receive();
+                            }
                         } else {
                             throw new IllegalArgumentException(e.getMessage().getClass().getName());
                         }

@@ -42,7 +42,6 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
     private class TestServerHandler extends ChannelInboundHandlerAdapter {
         @Override
         public void channelReadComplete(io.netty.channel.ChannelHandlerContext ctx) throws Exception {
-            //System.out.println("hello");
         }
 
         public void channelRegistered(io.netty.channel.ChannelHandlerContext ctx) throws Exception {
@@ -62,7 +61,6 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
         @Override
         public void channelRead(io.netty.channel.ChannelHandlerContext ctx, Object message) throws Exception {
             ByteBuf buffer = (ByteBuf)message;
-            System.out.println(buffer.readableBytes());
             State state = ctx.attr(STATE_ATTRIBUTE).get();
             int length = 0;
             Attribute<Integer> lengthAttribute = ctx.attr(LENGTH_ATTRIBUTE);
