@@ -27,23 +27,14 @@ public class Client {
             return;
         }
 
-        if (type.equals(CLIENT_TYPE.NETTY3)) {
-            this.type = CLIENT_TYPE.NETTY3;
-            this.data = ChannelBuffers.wrappedBuffer(data);
-        } else if (type.equals(CLIENT_TYPE.MINA3)) {
-            this.type = CLIENT_TYPE.MINA3;
-            this.data = data;
-        } else if (type.equals(CLIENT_TYPE.NETTY4)) {
-            this.type = CLIENT_TYPE.NETTY4;
-            this.data = data;
-        }
-
+        this.type = type;
+        this.data = data;
         this.client = client;
     }
 
     public void send() {
         if (type.equals(CLIENT_TYPE.NETTY3)) {
-            ((Channel) client).write(data);
+            ((Channel) client).write(ChannelBuffers.wrappedBuffer((byte[])data));
         } else if (type.equals(CLIENT_TYPE.MINA3)) {
             ((IoSession) client).write(ByteBuffer.wrap((byte[]) data));
         } else if (type.equals(CLIENT_TYPE.NETTY4)) {
