@@ -208,7 +208,10 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
         boolean isSuccess;
         try {
             Object finishData = finishQueue.poll();
-            while (null == finishData) {
+            long tryCnt = 0l;
+            // sometimes finishQueue will empty, but benchmark is not over
+            // TODO I will figure it out
+            while (null == finishData && tryCnt++ < 1000 * 1000 * 100l) {
                 finishData = finishQueue.poll();
             }
             isSuccess = true;
