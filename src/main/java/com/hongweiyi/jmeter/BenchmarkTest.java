@@ -245,8 +245,8 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
         Arguments params = new Arguments();
         params.addArgument(PARAM_NO_OF_MSG, "100000");
         params.addArgument(PARAM_SIZE_OF_MSG, 1024 * 1024 + "");
-        params.addArgument(PARAM_NETTY4_ALLOC, "unpooled");
         params.addArgument(PARAM_CLIENT_TYPE, "netty4");
+        params.addArgument(PARAM_NETTY4_ALLOC, "unpooled");
         params.addArgument("-----------------------------------", "");
         params.addArgument(PARAM_SEND_ASYNC, "false");
         params.addArgument(PARAM_ONE_THREAD_SEND_NUMBER, 128 + "");
