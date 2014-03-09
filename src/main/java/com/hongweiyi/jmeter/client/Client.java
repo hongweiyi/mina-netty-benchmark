@@ -33,10 +33,10 @@ public class Client {
     }
 
     public void send() {
-        if (type.equals(CLIENT_TYPE.NETTY3)) {
-            ((Channel) client).write(ChannelBuffers.wrappedBuffer((byte[])data));
-        } else if (type.equals(CLIENT_TYPE.MINA3)) {
+        if (type.equals(CLIENT_TYPE.MINA3)) {
             ((IoSession) client).write(ByteBuffer.wrap((byte[]) data));
+        } else if (type.equals(CLIENT_TYPE.NETTY3)) {
+            ((Channel) client).write(ChannelBuffers.wrappedBuffer((byte[])data));
         } else if (type.equals(CLIENT_TYPE.NETTY4)) {
             ByteBuf buf = UnpooledByteBufAllocator.DEFAULT.buffer(((byte[]) data).length);
             buf.writeBytes((byte[]) data);
@@ -45,10 +45,12 @@ public class Client {
     }
 
     public void close() {
-        if (type.equals(CLIENT_TYPE.NETTY3)) {
-            ((Channel) client).close();
-        } else if (type.equals(CLIENT_TYPE.MINA3)) {
+        if (type.equals(CLIENT_TYPE.MINA3)) {
             ((IoSession) client).close(true);
+        } else if (type.equals(CLIENT_TYPE.NETTY3)) {
+            ((Channel) client).close();
+        } else if (type.equals(CLIENT_TYPE.NETTY4)) {
+            ((io.netty.channel.Channel)client).close();
         }
     }
 }
