@@ -22,22 +22,22 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
     public static final String PARAM_NETTY4_ALLOC = "netty4_alloc";
     public static final String PARAM_CLIENT_TYPE = "client_type";
 
-    public static final String PARAM_SEND_ASYNC = "send_aysnc";
+    public static final String PARAM_SEND_ASYNC = "send_async";
+    public static final String PARAM_FIX_THREADPOOL = "fix_thread_pool_size(send_async: true)";
+    public static final String PARAM_ONE_THREAD_SEND_NUMBER = "one_thread_send_number(send_async: true)";
 
     protected CountDownLatch recvCounter;
     protected CountDownLatch sendCounter;
-    protected BlockingQueue<byte[]> recvQueue = new LinkedBlockingQueue<byte[]>();
 
     protected RecvCounterCallback clientCallback;
 
     private String label;
     private Client client;
     private Client.CLIENT_TYPE type;
-    private BenchmarkClient clientInternal;
 
     private boolean sendAsync;
-
-    private ExecutorService executor = Executors.newFixedThreadPool(16);
+    private ExecutorService executor;
+    private int oneThreadSendNumber;
 
     public BenchmarkClient getClientInternal(String clientType) throws Exception{
         BenchmarkClient bcmClient = null;
@@ -69,15 +69,18 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
 
         recvCounter = new CountDownLatch(1);
         sendCounter = new CountDownLatch(context.getIntParameter(PARAM_NO_OF_MSG) - 1); // -1 just for last request to close channel
-        int messageSize = context.getIntParameter(PARAM_SIZE_OF_MSG);
-        String paramAlloc = context.getParameter(PARAM_NETTY4_ALLOC);
-        String clientType = context.getParameter(PARAM_CLIENT_TYPE);
-        String sendAsyncStr = context.getParameter(PARAM_SEND_ASYNC);
 
+        // init async send params
+        String sendAsyncStr = context.getParameter(PARAM_SEND_ASYNC);
         if (Boolean.parseBoolean(sendAsyncStr.trim())) {
             sendAsync = true;
         }
 
+        int fixThreadPoolSize = context.getIntParameter(PARAM_FIX_THREADPOOL);
+        executor = Executors.newFixedThreadPool(fixThreadPoolSize);
+        oneThreadSendNumber = context.getIntParameter(PARAM_ONE_THREAD_SEND_NUMBER);
+
+        // init callback
         clientCallback = new RecvCounterCallback() {
             @Override
             public void receive() {
@@ -90,6 +93,7 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
         };
 
         // init send data
+        int messageSize = context.getIntParameter(PARAM_SIZE_OF_MSG);
         byte[] data = new byte[messageSize + 4];
         data[0] = (byte) (messageSize >>> 24 & 255);
         data[1] = (byte) (messageSize >>> 16 & 255);
@@ -98,7 +102,10 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
 
         // init client
         try {
-            clientInternal = getClientInternal(clientType);
+            String paramAlloc = context.getParameter(PARAM_NETTY4_ALLOC);
+            String clientType = context.getParameter(PARAM_CLIENT_TYPE);
+
+            BenchmarkClient clientInternal = getClientInternal(clientType);
             client = new Client(type, data, clientInternal.getClient(port, clientCallback, paramAlloc));
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,7 +177,7 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
             @Override
             public void run() {
                 int sendCnt = (int)sendCounter.getCount();
-                int step = 16;
+                int step = oneThreadSendNumber;
                 while (sendCnt > 0) {
                     if (sendCnt - step < 0) {
                         step = sendCnt;
@@ -188,9 +195,9 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
 
         boolean isSuccess;
         try {
-            Object finishData = finishQueue.poll(30, TimeUnit.SECONDS);
-            if (null == finishData) {
-                throw new InterruptedException("finishQueue await out of time");
+            Object finishData = finishQueue.poll();
+            while (null == finishData) {
+                finishData = finishQueue.poll();
             }
             isSuccess = true;
         } catch (Exception e) {
@@ -205,6 +212,7 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
 
     @Override
     public void teardownTest(JavaSamplerContext arg0) {
+        finishQueue.clear();
         try {
             server.stop();
         } catch (IOException e) {
@@ -220,10 +228,12 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
         params.addArgument(PARAM_NETTY4_ALLOC, "unpooled");
         params.addArgument(PARAM_CLIENT_TYPE, "netty4");
         params.addArgument(PARAM_SEND_ASYNC, "false");
+        params.addArgument(PARAM_ONE_THREAD_SEND_NUMBER, 128 + "");
+        params.addArgument(PARAM_FIX_THREADPOOL, 16 + "");
         return params;
     }
 
-    public BlockingQueue<Object> finishQueue = new LinkedBlockingQueue<Object>();
+    private BlockingQueue<Object> finishQueue = new LinkedBlockingQueue<Object>();
     private final byte[] QUEUE_DATA_SUCCESS = new byte[0];
 
     private class Worker implements Runnable {
