@@ -16,30 +16,30 @@ import java.util.concurrent.*;
  */
 public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
 
-    public static final String    PARAM_NO_OF_MSG              = "nubmer_of_msgs";
-    public static final String    PARAM_SIZE_OF_MSG            = "size_of_single_msg";
-    public static final String    PARAM_NETTY4_ALLOC           = "netty4_alloc (client_type: netty4)";
-    public static final String    PARAM_CLIENT_TYPE            = "client_type (mina3 | netty3 | netty4)";
+    public static final String       PARAM_NO_OF_MSG              = "nubmer_of_msgs";
+    public static final String       PARAM_SIZE_OF_MSG            = "size_of_single_msg";
+    public static final String       PARAM_NETTY4_ALLOC           = "netty4_alloc (client_type: netty4)";
+    public static final String       PARAM_CLIENT_TYPE            = "client_type (mina3 | netty3 | netty4)";
 
-    public static final String    PARAM_SEND_ASYNC             = "send_async";
-    public static final String    PARAM_FIX_THREADPOOL         = "fix_thread_pool_size (send_async: true)";
-    public static final String    PARAM_ONE_THREAD_SEND_NUMBER = "one_thread_send_number (send_async: true)";
+    public static final String       PARAM_SEND_ASYNC             = "send_async";
+    public static final String       PARAM_FIX_THREADPOOL         = "fix_thread_pool_size (send_async: true)";
+    public static final String       PARAM_ONE_THREAD_SEND_NUMBER = "one_thread_send_number (send_async: true)";
 
-    protected CountDownLatch      recvCounter;
-    protected CountDownLatch      sendCounter;
+    protected CountDownLatch         recvCounter;
+    protected CountDownLatch         sendCounter;
 
-    protected RecvCounterCallback clientCallback;
+    protected RecvCounterCallback    clientCallback;
 
-    private String                label;
-    private Client                client;
-    private Client.CLIENT_TYPE    type;
+    private String                   label;
+    private Client                   client;
+    private Client.CLIENT_TYPE       type;
 
-    private boolean               sendAsync;
-    private ExecutorService       executor;
-    private int                   oneThreadSendNumber;
+    private boolean                  sendAsync;
+    private ExecutorService          executor;
+    private int                      oneThreadSendNumber;
 
-    private BlockingQueue<Object> finishQueue        = new LinkedBlockingQueue<Object>();
-    private final byte[]          QUEUE_DATA_SUCCESS = new byte[0];
+    private BlockingQueue<Object>    finishQueue                  = new LinkedBlockingQueue<Object>();
+    private final byte[]             QUEUE_DATA_SUCCESS           = new byte[0];
 
     protected static BenchmarkServer server;
     protected static int             port;
@@ -204,17 +204,22 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
 
     private boolean invokeAsync() {
         invokeAsyncOnce(); // invoke once, for starting client invoke thread
-
+        long TRY_CNT = 1000 * 1000 * 100l;
         boolean isSuccess;
         try {
             Object finishData = finishQueue.poll();
             long tryCnt = 0l;
             // sometimes finishQueue will empty, but benchmark is not over
             // TODO I will figure it out
-            while (null == finishData && tryCnt++ < 1000 * 1000 * 100l) {
+            while (null == finishData && tryCnt++ < TRY_CNT) {
                 finishData = finishQueue.poll();
             }
-            isSuccess = true;
+
+            if (tryCnt == TRY_CNT) {
+                isSuccess = false;
+            } else {
+                isSuccess = true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             isSuccess = false;
