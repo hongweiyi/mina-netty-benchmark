@@ -48,7 +48,11 @@ Version
 1.2.2
 ---
 - fix some problems
-    * jmeter Aggregate Report results not to stable
     * optimize Label in Aggreate Report
-    * extract some paramters
+    * extract some parameters
+- reformat code
+
+Blog
+===
+[hongweiyi.com](http://hongweiyi.com)
 
