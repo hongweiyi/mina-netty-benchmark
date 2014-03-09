@@ -1,6 +1,5 @@
 package com.hongweiyi.jmeter.client;
 
-
 import com.hongweiyi.jmeter.RecvCounterCallback;
 import org.jboss.netty.bootstrap.ClientBootstrap;
 import org.jboss.netty.buffer.ChannelBuffer;
@@ -18,8 +17,8 @@ public class Netty3TcpBenchmarkClient extends BenchmarkClient {
     public static final String LABEL = "Netty3";
 
     @Override
-    public Object getClient(int port, final RecvCounterCallback clientCallback, String ... params)
-            throws Exception {
+    public Object getClient(int port, final RecvCounterCallback clientCallback, String... params)
+                                                                                                 throws Exception {
         ChannelFactory factory = new NioClientSocketChannelFactory();
 
         ClientBootstrap bootstrap = new ClientBootstrap(factory);
@@ -30,7 +29,8 @@ public class Netty3TcpBenchmarkClient extends BenchmarkClient {
                 return Channels.pipeline(new SimpleChannelUpstreamHandler() {
 
                     @Override
-                    public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
+                    public void messageReceived(ChannelHandlerContext ctx, MessageEvent e)
+                                                                                          throws Exception {
                         if (e.getMessage() instanceof ChannelBuffer) {
                             ChannelBuffer buffer = (ChannelBuffer) e.getMessage();
                             int length = buffer.readableBytes();

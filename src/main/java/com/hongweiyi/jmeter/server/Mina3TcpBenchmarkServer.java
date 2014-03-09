@@ -1,6 +1,5 @@
 package com.hongweiyi.jmeter.server;
 
-
 import org.apache.mina.api.IdleStatus;
 import org.apache.mina.api.IoHandler;
 import org.apache.mina.api.IoService;
@@ -25,21 +24,24 @@ public class Mina3TcpBenchmarkServer extends BenchmarkServer {
         WAIT_FOR_FIRST_BYTE_LENGTH, WAIT_FOR_SECOND_BYTE_LENGTH, WAIT_FOR_THIRD_BYTE_LENGTH, WAIT_FOR_FOURTH_BYTE_LENGTH, READING
     }
 
-    private static final ByteBuffer ACK = ByteBuffer.allocate(1);
+    private static final ByteBuffer            ACK              = ByteBuffer.allocate(1);
 
     static {
         ACK.put((byte) 0);
         ACK.rewind();
     }
 
-    private static final AttributeKey<State> STATE_ATTRIBUTE = new AttributeKey<State>(State.class,
-            Mina3TcpBenchmarkServer.class.getName() + ".state");
+    private static final AttributeKey<State>   STATE_ATTRIBUTE  = new AttributeKey<State>(
+                                                                    State.class,
+                                                                    Mina3TcpBenchmarkServer.class
+                                                                        .getName() + ".state");
 
-    private static final AttributeKey<Integer> LENGTH_ATTRIBUTE = new AttributeKey<Integer>(Integer.class,
-            Mina3TcpBenchmarkServer.class.getName() + ".length");
+    private static final AttributeKey<Integer> LENGTH_ATTRIBUTE = new AttributeKey<Integer>(
+                                                                    Integer.class,
+                                                                    Mina3TcpBenchmarkServer.class
+                                                                        .getName() + ".length");
 
-    private NioTcpServer tcpServer;
-
+    private NioTcpServer                       tcpServer;
 
     @Override
     public void start(int port) throws IOException {
@@ -140,6 +142,6 @@ public class Mina3TcpBenchmarkServer extends BenchmarkServer {
 
     @Override
     public String getLabel() {
-       return LABEL;
+        return LABEL;
     }
 }

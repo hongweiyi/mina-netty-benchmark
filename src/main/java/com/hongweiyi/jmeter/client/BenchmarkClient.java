@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class BenchmarkClient {
 
     private static AtomicInteger id = new AtomicInteger(0);
+
     public String getLabel() {
         int i = id.get();
         id.incrementAndGet();
@@ -26,6 +27,6 @@ public abstract class BenchmarkClient {
      * @return netty: Channel object mina:IoSession object
      * @throws Exception
      */
-    public abstract Object getClient(int port, final RecvCounterCallback clientCallback, String ... params)
-            throws Exception;
+    public abstract Object getClient(int port, final RecvCounterCallback clientCallback,
+                                     String... params) throws Exception;
 }

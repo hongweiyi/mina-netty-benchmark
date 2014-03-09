@@ -1,6 +1,5 @@
 package com.hongweiyi.jmeter.server;
 
-
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
@@ -20,11 +19,13 @@ import java.util.Map;
  */
 public class Netty3TcpBenchmarkServer extends BenchmarkServer {
 
-    public static final String LABEL = "Netty3-Server";
+    public static final String         LABEL            = "Netty3-Server";
 
-    private static final String STATE_ATTRIBUTE = Netty3TcpBenchmarkServer.class.getName() + ".state";
-    private static final String LENGTH_ATTRIBUTE = Netty3TcpBenchmarkServer.class.getName() + ".length";
-    private static final ChannelBuffer ACK = ChannelBuffers.buffer(1);
+    private static final String        STATE_ATTRIBUTE  = Netty3TcpBenchmarkServer.class.getName()
+                                                          + ".state";
+    private static final String        LENGTH_ATTRIBUTE = Netty3TcpBenchmarkServer.class.getName()
+                                                          + ".length";
+    private static final ChannelBuffer ACK              = ChannelBuffers.buffer(1);
 
     static {
         ACK.writeByte(0);
@@ -33,6 +34,7 @@ public class Netty3TcpBenchmarkServer extends BenchmarkServer {
     private static enum State {
         WAIT_FOR_FIRST_BYTE_LENGTH, WAIT_FOR_SECOND_BYTE_LENGTH, WAIT_FOR_THIRD_BYTE_LENGTH, WAIT_FOR_FOURTH_BYTE_LENGTH, READING
     }
+
     protected static Map<String, Object> getAttributesMap(ChannelHandlerContext ctx) {
         Map<String, Object> map = (Map<String, Object>) ctx.getAttachment();
         if (map == null) {
@@ -41,6 +43,7 @@ public class Netty3TcpBenchmarkServer extends BenchmarkServer {
         }
         return map;
     }
+
     private static void setAttribute(ChannelHandlerContext ctx, String name, Object value) {
         getAttributesMap(ctx).put(name, value);
     }
@@ -48,9 +51,10 @@ public class Netty3TcpBenchmarkServer extends BenchmarkServer {
     private static Object getAttribute(ChannelHandlerContext ctx, String name) {
         return getAttributesMap(ctx).get(name);
     }
+
     private static ChannelGroup allChannels = new DefaultChannelGroup();
 
-    private ChannelFactory factory;
+    private ChannelFactory      factory;
 
     @Override
     public void start(int port) throws IOException {
@@ -63,21 +67,23 @@ public class Netty3TcpBenchmarkServer extends BenchmarkServer {
             public ChannelPipeline getPipeline() throws Exception {
                 return Channels.pipeline(new SimpleChannelUpstreamHandler() {
                     @Override
-                    public void childChannelOpen(ChannelHandlerContext ctx, ChildChannelStateEvent e) throws Exception {
+                    public void childChannelOpen(ChannelHandlerContext ctx, ChildChannelStateEvent e)
+                                                                                                     throws Exception {
                         System.out.println("childChannelOpen");
                         setAttribute(ctx, STATE_ATTRIBUTE, State.WAIT_FOR_FIRST_BYTE_LENGTH);
                     }
 
                     @Override
-                    public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
+                    public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e)
+                                                                                           throws Exception {
                         System.out.println("channelOpen");
                         setAttribute(ctx, STATE_ATTRIBUTE, State.WAIT_FOR_FIRST_BYTE_LENGTH);
                         allChannels.add(ctx.getChannel());
                     }
 
-
                     @Override
-                    public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
+                    public void messageReceived(ChannelHandlerContext ctx, MessageEvent e)
+                                                                                          throws Exception {
                         if (e.getMessage() instanceof ChannelBuffer) {
                             ChannelBuffer buffer = (ChannelBuffer) e.getMessage();
 
@@ -127,13 +133,15 @@ public class Netty3TcpBenchmarkServer extends BenchmarkServer {
                     }
 
                     @Override
-                    public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
+                    public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e)
+                                                                                             throws Exception {
                         allChannels.remove(ctx.getChannel());
                         System.out.println("channelClosed");
                     }
 
                     @Override
-                    public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) throws Exception {
+                    public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e)
+                                                                                            throws Exception {
                         e.getCause().printStackTrace();
                     }
                 });

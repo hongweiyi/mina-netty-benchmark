@@ -1,6 +1,5 @@
 package com.hongweiyi.jmeter.client;
 
-
 import com.hongweiyi.jmeter.RecvCounterCallback;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -22,16 +21,15 @@ import java.net.InetSocketAddress;
  */
 public class Netty4TcpBenchmarkClient extends BenchmarkClient {
 
-    public static final String LABEL = "Netty4";
-    public static final String NETTY4_ALLOC_POOLED = "pooled";
+    public static final String LABEL                 = "Netty4";
+    public static final String NETTY4_ALLOC_POOLED   = "pooled";
     public static final String NETTY4_ALLOC_UNPOOLED = "unpooled";
 
-    private EventLoopGroup group = new NioEventLoopGroup();
-
+    private EventLoopGroup     group                 = new NioEventLoopGroup();
 
     @Override
-    public Object getClient(int port, final RecvCounterCallback clientCallback, final String ... params)
-            throws Exception {
+    public Object getClient(int port, final RecvCounterCallback clientCallback,
+                            final String... params) throws Exception {
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(group);
         bootstrap.option(ChannelOption.SO_SNDBUF, 64 * 10 * 1024);
@@ -51,9 +49,10 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
                 ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
 
                     @Override
-                    public void channelRead(io.netty.channel.ChannelHandlerContext ctx, Object message) throws Exception {
+                    public void channelRead(io.netty.channel.ChannelHandlerContext ctx,
+                                            Object message) throws Exception {
                         if (message instanceof ByteBuf) {
-                            ByteBuf buffer = (ByteBuf)message;
+                            ByteBuf buffer = (ByteBuf) message;
                             long length = buffer.readableBytes();
                             while (length-- > 0) { // server responses only one byte
                                 clientCallback.receive();
@@ -64,7 +63,8 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
                     }
 
                     @Override
-                    public void channelActive(io.netty.channel.ChannelHandlerContext ctx) throws Exception {
+                    public void channelActive(io.netty.channel.ChannelHandlerContext ctx)
+                                                                                         throws Exception {
                     }
                 });
             }

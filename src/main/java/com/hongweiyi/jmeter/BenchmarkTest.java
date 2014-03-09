@@ -10,36 +10,35 @@ import org.apache.jmeter.samplers.SampleResult;
 import java.io.IOException;
 import java.util.concurrent.*;
 
-
 /**
  * @author hongwei.yhw
  * @version 2014-02-23. 5:22 PM
  */
 public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
 
-    public static final String PARAM_NO_OF_MSG = "nubmer_of_msgs";
-    public static final String PARAM_SIZE_OF_MSG = "size_of_single_msg";
-    public static final String PARAM_NETTY4_ALLOC = "netty4_alloc";
-    public static final String PARAM_CLIENT_TYPE = "client_type";
+    public static final String    PARAM_NO_OF_MSG              = "nubmer_of_msgs";
+    public static final String    PARAM_SIZE_OF_MSG            = "size_of_single_msg";
+    public static final String    PARAM_NETTY4_ALLOC           = "netty4_alloc";
+    public static final String    PARAM_CLIENT_TYPE            = "client_type";
 
-    public static final String PARAM_SEND_ASYNC = "send_async";
-    public static final String PARAM_FIX_THREADPOOL = "fix_thread_pool_size(send_async: true)";
-    public static final String PARAM_ONE_THREAD_SEND_NUMBER = "one_thread_send_number(send_async: true)";
+    public static final String    PARAM_SEND_ASYNC             = "send_async";
+    public static final String    PARAM_FIX_THREADPOOL         = "fix_thread_pool_size(send_async: true)";
+    public static final String    PARAM_ONE_THREAD_SEND_NUMBER = "one_thread_send_number(send_async: true)";
 
-    protected CountDownLatch recvCounter;
-    protected CountDownLatch sendCounter;
+    protected CountDownLatch      recvCounter;
+    protected CountDownLatch      sendCounter;
 
     protected RecvCounterCallback clientCallback;
 
-    private String label;
-    private Client client;
-    private Client.CLIENT_TYPE type;
+    private String                label;
+    private Client                client;
+    private Client.CLIENT_TYPE    type;
 
-    private boolean sendAsync;
-    private ExecutorService executor;
-    private int oneThreadSendNumber;
+    private boolean               sendAsync;
+    private ExecutorService       executor;
+    private int                   oneThreadSendNumber;
 
-    public BenchmarkClient getClientInternal(String clientType) throws Exception{
+    public BenchmarkClient getClientInternal(String clientType) throws Exception {
         BenchmarkClient bcmClient = null;
         if ("netty3".equals(clientType)) {
             type = Client.CLIENT_TYPE.NETTY3;
@@ -60,9 +59,8 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
         }
     }
 
-
     protected static BenchmarkServer server;
-    protected static int port;
+    protected static int             port;
 
     @Override
     public void setupTest(JavaSamplerContext context) {
@@ -106,12 +104,12 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
             String clientType = context.getParameter(PARAM_CLIENT_TYPE);
 
             BenchmarkClient clientInternal = getClientInternal(clientType);
-            client = new Client(type, data, clientInternal.getClient(port, clientCallback, paramAlloc));
+            client = new Client(type, data, clientInternal.getClient(port, clientCallback,
+                paramAlloc));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public SampleResult runTest(JavaSamplerContext javaSamplerContext) {
@@ -129,7 +127,7 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
             }
         } else {
             client.close();
-            System.out.println("Client "+ ": closed!");
+            System.out.println("Client " + ": closed!");
         }
 
         sr.setSuccessful(isSuccess);
@@ -161,7 +159,6 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
         return true;
     }
 
-
     private boolean asyncStarted = false;
 
     /**
@@ -176,7 +173,7 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                int sendCnt = (int)sendCounter.getCount();
+                int sendCnt = (int) sendCounter.getCount();
                 int step = oneThreadSendNumber;
                 while (sendCnt > 0) {
                     if (sendCnt - step < 0) {
@@ -233,8 +230,8 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
         return params;
     }
 
-    private BlockingQueue<Object> finishQueue = new LinkedBlockingQueue<Object>();
-    private final byte[] QUEUE_DATA_SUCCESS = new byte[0];
+    private BlockingQueue<Object> finishQueue        = new LinkedBlockingQueue<Object>();
+    private final byte[]          QUEUE_DATA_SUCCESS = new byte[0];
 
     private class Worker implements Runnable {
 

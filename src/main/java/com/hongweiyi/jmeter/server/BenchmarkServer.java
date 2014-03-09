@@ -14,7 +14,6 @@ public abstract class BenchmarkServer {
 
     public abstract void stop() throws IOException;
 
-
     /**
      * gen a available port for benchmark server
      *

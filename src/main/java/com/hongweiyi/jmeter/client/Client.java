@@ -13,12 +13,14 @@ import java.nio.ByteBuffer;
  * @version 2014-02-23. 9:18 PM
  */
 public class Client {
-    public static enum CLIENT_TYPE {MINA2, MINA3, NETTY3, NETTY4}
+    public static enum CLIENT_TYPE {
+        MINA2, MINA3, NETTY3, NETTY4
+    }
 
     private CLIENT_TYPE type;
-    private Object data;
+    private Object      data;
 
-    private Object client;
+    private Object      client;
 
     public Client(CLIENT_TYPE type, byte[] data, Object client) {
         if (null == type || null == data || null == client) {
@@ -41,21 +43,21 @@ public class Client {
 
     public void send() {
         if (type.equals(CLIENT_TYPE.NETTY3)) {
-            ((Channel)client).write(data);
+            ((Channel) client).write(data);
         } else if (type.equals(CLIENT_TYPE.MINA3)) {
-            ((IoSession)client).write(ByteBuffer.wrap((byte[]) data));
+            ((IoSession) client).write(ByteBuffer.wrap((byte[]) data));
         } else if (type.equals(CLIENT_TYPE.NETTY4)) {
-            ByteBuf buf = UnpooledByteBufAllocator.DEFAULT.buffer(((byte[])data).length);
-            buf.writeBytes((byte[])data);
-            ((io.netty.channel.Channel)client).writeAndFlush(buf);
+            ByteBuf buf = UnpooledByteBufAllocator.DEFAULT.buffer(((byte[]) data).length);
+            buf.writeBytes((byte[]) data);
+            ((io.netty.channel.Channel) client).writeAndFlush(buf);
         }
     }
 
     public void close() {
         if (type.equals(CLIENT_TYPE.NETTY3)) {
-            ((Channel)client).close();
+            ((Channel) client).close();
         } else if (type.equals(CLIENT_TYPE.MINA3)) {
-            ((IoSession)client).close(true);
+            ((IoSession) client).close(true);
         }
     }
 }

@@ -39,11 +39,11 @@ public class Mina3TcpBenchmarkClient extends BenchmarkClient {
     public static final String LABEL = "Mina3";
 
     // The TCP client
-    private NioTcpClient client;
+    private NioTcpClient       client;
 
     @Override
-    public Object getClient(int port, final RecvCounterCallback clientCallback, String ... params)
-            throws Exception {
+    public Object getClient(int port, final RecvCounterCallback clientCallback, String... params)
+                                                                                                 throws Exception {
         client = new NioTcpClient();
         client.getSessionConfig().setSendBufferSize(64 * 1024);
         client.getSessionConfig().setTcpNoDelay(true);
@@ -56,7 +56,7 @@ public class Mina3TcpBenchmarkClient extends BenchmarkClient {
             @Override
             public void messageReceived(IoSession session, Object message) {
                 if (message instanceof ByteBuffer) {
-                    ByteBuffer buffer = (ByteBuffer)message;
+                    ByteBuffer buffer = (ByteBuffer) message;
                     int length = buffer.remaining();
                     while (length-- > 0) { // server responses only one byte
                         clientCallback.receive();
