@@ -18,12 +18,12 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
 
     public static final String    PARAM_NO_OF_MSG              = "nubmer_of_msgs";
     public static final String    PARAM_SIZE_OF_MSG            = "size_of_single_msg";
-    public static final String    PARAM_NETTY4_ALLOC           = "netty4_alloc";
-    public static final String    PARAM_CLIENT_TYPE            = "client_type";
+    public static final String    PARAM_NETTY4_ALLOC           = "netty4_alloc (client_type: netty4)";
+    public static final String    PARAM_CLIENT_TYPE            = "client_type (mina3 | netty3 | netty4)";
 
     public static final String    PARAM_SEND_ASYNC             = "send_async";
-    public static final String    PARAM_FIX_THREADPOOL         = "fix_thread_pool_size(send_async: true)";
-    public static final String    PARAM_ONE_THREAD_SEND_NUMBER = "one_thread_send_number(send_async: true)";
+    public static final String    PARAM_FIX_THREADPOOL         = "fix_thread_pool_size (send_async: true)";
+    public static final String    PARAM_ONE_THREAD_SEND_NUMBER = "one_thread_send_number (send_async: true)";
 
     protected CountDownLatch      recvCounter;
     protected CountDownLatch      sendCounter;
@@ -37,6 +37,12 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
     private boolean               sendAsync;
     private ExecutorService       executor;
     private int                   oneThreadSendNumber;
+
+    private BlockingQueue<Object> finishQueue        = new LinkedBlockingQueue<Object>();
+    private final byte[]          QUEUE_DATA_SUCCESS = new byte[0];
+
+    protected static BenchmarkServer server;
+    protected static int             port;
 
     public BenchmarkClient getClientInternal(String clientType) throws Exception {
         BenchmarkClient bcmClient = null;
@@ -52,15 +58,24 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
         }
 
         if (null != bcmClient) {
-            label = bcmClient.getLabel() + " " + server.getLabel();
+            label = genLabel(bcmClient, server);
             return bcmClient;
         } else {
             throw new Exception("client_type must be netty3 | netty4 | mina3 !");
         }
     }
 
-    protected static BenchmarkServer server;
-    protected static int             port;
+    private String genLabel(BenchmarkClient bcmClient, BenchmarkServer server) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(server.getLabel()).append('\t');
+        if (sendAsync) {
+            sb.append("Async").append('\t');
+        } else {
+            sb.append("Sync").append('\t');
+        }
+        sb.append(bcmClient.getLabel());
+        return sb.toString();
+    }
 
     @Override
     public void setupTest(JavaSamplerContext context) {
@@ -224,14 +239,12 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
         params.addArgument(PARAM_SIZE_OF_MSG, 1024 * 1024 + "");
         params.addArgument(PARAM_NETTY4_ALLOC, "unpooled");
         params.addArgument(PARAM_CLIENT_TYPE, "netty4");
+        params.addArgument("-----------------------------------", "");
         params.addArgument(PARAM_SEND_ASYNC, "false");
         params.addArgument(PARAM_ONE_THREAD_SEND_NUMBER, 128 + "");
         params.addArgument(PARAM_FIX_THREADPOOL, 16 + "");
         return params;
     }
-
-    private BlockingQueue<Object> finishQueue        = new LinkedBlockingQueue<Object>();
-    private final byte[]          QUEUE_DATA_SUCCESS = new byte[0];
 
     private class Worker implements Runnable {
 

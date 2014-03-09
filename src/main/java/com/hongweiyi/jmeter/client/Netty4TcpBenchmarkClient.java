@@ -80,6 +80,6 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
 
     @Override
     public String getLabel() {
-        return LABEL + " -> " + super.getLabel();
+        return LABEL + "-" + super.getLabel();
     }
 }

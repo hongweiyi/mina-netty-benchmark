@@ -51,6 +51,6 @@ public class Netty3TcpBenchmarkClient extends BenchmarkClient {
 
     @Override
     public String getLabel() {
-        return LABEL + " -> " + super.getLabel();
+        return LABEL + "-" + super.getLabel();
     }
 }
