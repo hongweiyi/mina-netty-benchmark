@@ -52,6 +52,13 @@ Version
     * extract some parameters
 - reformat code
 
+1.2.3
+---
+- optimize Label
+    * server name | send mode | client name : id
+- add Netty4 pooled option to Client
+- change the way of netty3 write buffer creation
+
 Blog
 ===
 [hongweiyi.com](http://hongweiyi.com)
