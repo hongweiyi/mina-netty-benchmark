@@ -24,6 +24,7 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
     public static final String LABEL                 = "Netty4";
     public static final String NETTY4_ALLOC_POOLED   = "pooled";
     public static final String NETTY4_ALLOC_UNPOOLED = "unpooled";
+    private String netty4AllocMethod;
 
     private EventLoopGroup     group                 = new NioEventLoopGroup();
 
@@ -42,10 +43,16 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
                 for (String param : params) {
                     if (NETTY4_ALLOC_POOLED.equals(param)) {
                         ch.config().setAllocator(PooledByteBufAllocator.DEFAULT);
+                        netty4AllocMethod = NETTY4_ALLOC_POOLED;
                     } else if (NETTY4_ALLOC_UNPOOLED.equals(param)) {
                         ch.config().setAllocator(UnpooledByteBufAllocator.DEFAULT);
+                        netty4AllocMethod = NETTY4_ALLOC_UNPOOLED;
                     }
                 }
+                if (null == netty4AllocMethod) {
+                    netty4AllocMethod = NETTY4_ALLOC_UNPOOLED;
+                }
+
                 ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
 
                     @Override
@@ -80,6 +87,6 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
 
     @Override
     public String getLabel() {
-        return LABEL + "-" + super.getLabel();
+        return LABEL + "-" + netty4AllocMethod + "-" + super.getLabel();
     }
 }

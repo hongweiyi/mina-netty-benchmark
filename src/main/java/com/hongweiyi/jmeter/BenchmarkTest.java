@@ -25,6 +25,8 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
     public static final String       PARAM_FIX_THREADPOOL         = "fix_thread_pool_size (send_async: true)";
     public static final String       PARAM_ONE_THREAD_SEND_NUMBER = "one_thread_send_number (send_async: true)";
 
+    public static final String       LABEL_SEPERATE               = " | ";
+
     protected CountDownLatch         recvCounter;
     protected CountDownLatch         sendCounter;
 
@@ -41,8 +43,8 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
     private BlockingQueue<Object>    finishQueue                  = new LinkedBlockingQueue<Object>();
     private final byte[]             QUEUE_DATA_SUCCESS           = new byte[0];
 
-    protected static BenchmarkServer server;
-    protected static int             port;
+    protected BenchmarkServer        server;
+    protected int                    port;
 
     public BenchmarkClient getClientInternal(String clientType) throws Exception {
         BenchmarkClient bcmClient = null;
@@ -58,7 +60,6 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
         }
 
         if (null != bcmClient) {
-            label = genLabel(bcmClient, server);
             return bcmClient;
         } else {
             throw new Exception("client_type must be netty3 | netty4 | mina3 !");
@@ -67,11 +68,11 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
 
     private String genLabel(BenchmarkClient bcmClient, BenchmarkServer server) {
         StringBuffer sb = new StringBuffer();
-        sb.append(server.getLabel()).append('\t');
+        sb.append(server.getLabel()).append(LABEL_SEPERATE);
         if (sendAsync) {
-            sb.append("Async").append('\t');
+            sb.append("Async").append(LABEL_SEPERATE);
         } else {
-            sb.append("Sync").append('\t');
+            sb.append("Sync").append(LABEL_SEPERATE);
         }
         sb.append(bcmClient.getLabel());
         return sb.toString();
@@ -121,9 +122,12 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
             BenchmarkClient clientInternal = getClientInternal(clientType);
             client = new Client(type, data, clientInternal.getClient(port, clientCallback,
                 paramAlloc), paramAlloc);
+
+            label = genLabel(clientInternal, server);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
