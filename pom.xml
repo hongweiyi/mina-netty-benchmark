@@ -11,6 +11,7 @@
     <properties>
         <netty3.version>3.8.0.Final</netty3.version>
         <netty4.version>4.0.17.Final</netty4.version>
+        <!--<netty4.version>5.0.0.Alpha1</netty4.version>-->
         <mina3.version>3.0.0-M2</mina3.version>
     </properties>
 

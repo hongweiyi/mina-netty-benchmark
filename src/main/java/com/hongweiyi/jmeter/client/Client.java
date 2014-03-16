@@ -3,6 +3,7 @@ package com.hongweiyi.jmeter.client;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.UnpooledByteBufAllocator;
 import org.apache.mina.api.IoSession;
+import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 
@@ -18,11 +19,15 @@ public class Client {
     }
 
     private CLIENT_TYPE type;
-    private Object      data;
+    private byte[]      data;
 
     private Object      client;
+    private boolean     netty4Pooled;
 
     public Client(CLIENT_TYPE type, byte[] data, Object client) {
+        this(type, data, client, "false");
+    }
+    public Client(CLIENT_TYPE type, byte[] data, Object client, String netty4Pooled) {
         if (null == type || null == data || null == client) {
             return;
         }
@@ -30,16 +35,19 @@ public class Client {
         this.type = type;
         this.data = data;
         this.client = client;
+        this.netty4Pooled = Boolean.parseBoolean(netty4Pooled);
     }
 
     public void send() {
         if (type.equals(CLIENT_TYPE.MINA3)) {
-            ((IoSession) client).write(ByteBuffer.wrap((byte[]) data));
+            ((IoSession) client).write(ByteBuffer.wrap(data));
         } else if (type.equals(CLIENT_TYPE.NETTY3)) {
-            ((Channel) client).write(ChannelBuffers.wrappedBuffer((byte[])data));
+            ChannelBuffer buf = ChannelBuffers.buffer(data.length);
+            buf.writeBytes(data);
+            ((Channel) client).write(buf);
         } else if (type.equals(CLIENT_TYPE.NETTY4)) {
-            ByteBuf buf = UnpooledByteBufAllocator.DEFAULT.buffer(((byte[]) data).length);
-            buf.writeBytes((byte[]) data);
+            ByteBuf buf = UnpooledByteBufAllocator.DEFAULT.buffer(data.length);
+            buf.writeBytes(data);
             ((io.netty.channel.Channel) client).writeAndFlush(buf);
         }
     }

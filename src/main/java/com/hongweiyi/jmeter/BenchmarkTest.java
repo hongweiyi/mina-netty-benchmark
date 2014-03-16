@@ -120,7 +120,7 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
 
             BenchmarkClient clientInternal = getClientInternal(clientType);
             client = new Client(type, data, clientInternal.getClient(port, clientCallback,
-                paramAlloc));
+                paramAlloc), paramAlloc);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -209,8 +209,6 @@ public abstract class BenchmarkTest extends AbstractJavaSamplerClient {
         try {
             Object finishData = finishQueue.poll();
             long tryCnt = 0l;
-            // sometimes finishQueue will empty, but benchmark is not over
-            // TODO I will figure it out
             while (null == finishData && tryCnt++ < TRY_CNT) {
                 finishData = finishQueue.poll();
             }
