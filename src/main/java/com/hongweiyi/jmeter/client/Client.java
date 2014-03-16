@@ -25,7 +25,7 @@ public class Client {
     private boolean     netty4Pooled;
 
     public Client(CLIENT_TYPE type, byte[] data, Object client) {
-        this(type, data, client, "false");
+        this(type, data, client, Netty4TcpBenchmarkClient.NETTY4_ALLOC_UNPOOLED);
     }
     public Client(CLIENT_TYPE type, byte[] data, Object client, String netty4Pooled) {
         if (null == type || null == data || null == client) {
@@ -35,7 +35,7 @@ public class Client {
         this.type = type;
         this.data = data;
         this.client = client;
-        this.netty4Pooled = Boolean.parseBoolean(netty4Pooled);
+        this.netty4Pooled = Netty4TcpBenchmarkClient.NETTY4_ALLOC_POOLED.equalsIgnoreCase(netty4Pooled);
     }
 
     public void send() {
