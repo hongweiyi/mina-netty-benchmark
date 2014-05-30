@@ -20,12 +20,24 @@
             <groupId>org.apache.jmeter</groupId>
             <artifactId>ApacheJMeter_core</artifactId>
             <version>2.11</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fifesoft</groupId>
+                    <artifactId>rsyntaxtextarea</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.apache.jmeter</groupId>
             <artifactId>ApacheJMeter_java</artifactId>
             <version>2.11</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fifesoft</groupId>
+                    <artifactId>rsyntaxtextarea</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -45,6 +57,13 @@
             <artifactId>mina-core</artifactId>
             <version>${mina3.version}</version>
         </dependency>
+
+        <dependency>
+              <groupId>com.fifesoft</groupId>
+              <artifactId>rsyntaxtextarea</artifactId>
+              <version>2.5.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
