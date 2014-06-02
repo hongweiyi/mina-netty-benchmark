@@ -1,4 +1,4 @@
-package com.hongweiyi.jmeter.server;
+package com.hongweiyi.bench.server;
 
 import org.apache.mina.api.IdleStatus;
 import org.apache.mina.api.IoHandler;
@@ -17,8 +17,6 @@ import java.nio.ByteBuffer;
  * @version 2014-02-23. 7:52 PM
  */
 public class Mina3TcpBenchmarkServer extends BenchmarkServer {
-
-    public final static String LABEL = "Mina3-Server";
 
     private static enum State {
         WAIT_FOR_FIRST_BYTE_LENGTH, WAIT_FOR_SECOND_BYTE_LENGTH, WAIT_FOR_THIRD_BYTE_LENGTH, WAIT_FOR_FOURTH_BYTE_LENGTH, READING
@@ -134,14 +132,6 @@ public class Mina3TcpBenchmarkServer extends BenchmarkServer {
 
     @Override
     public void stop() throws IOException {
-        // do nothing
-        // Can not close the server
-        // Server is a static object
-        // so Server will last until class is unloaded
     }
 
-    @Override
-    public String getLabel() {
-        return LABEL;
-    }
 }

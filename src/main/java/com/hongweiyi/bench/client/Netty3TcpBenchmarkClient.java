@@ -1,6 +1,6 @@
-package com.hongweiyi.jmeter.client;
+package com.hongweiyi.bench.client;
 
-import com.hongweiyi.jmeter.RecvCounterCallback;
+import com.hongweiyi.bench.RecvCounterCallback;
 import org.jboss.netty.bootstrap.ClientBootstrap;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.*;

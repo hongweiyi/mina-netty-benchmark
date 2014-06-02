@@ -17,9 +17,9 @@
  *  under the License.
  *
  */
-package com.hongweiyi.jmeter.client;
+package com.hongweiyi.bench.client;
 
-import com.hongweiyi.jmeter.RecvCounterCallback;
+import com.hongweiyi.bench.RecvCounterCallback;
 import org.apache.mina.api.IdleStatus;
 import org.apache.mina.api.IoHandler;
 import org.apache.mina.api.IoService;

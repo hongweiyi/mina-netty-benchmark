@@ -1,4 +1,4 @@
-package com.hongweiyi.jmeter;
+package com.hongweiyi.bench;
 
 /**
  * @author hongwei.yhw

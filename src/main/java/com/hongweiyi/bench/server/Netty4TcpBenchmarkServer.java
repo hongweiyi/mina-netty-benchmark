@@ -1,4 +1,4 @@
-package com.hongweiyi.jmeter.server;
+package com.hongweiyi.bench.server;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -19,8 +19,6 @@ import java.io.IOException;
  * @version 2014-02-23. 7:52 PM
  */
 public class Netty4TcpBenchmarkServer extends BenchmarkServer {
-
-    public static final String LABEL = "Netty4-Server";
 
     private static enum State {
         WAIT_FOR_FIRST_BYTE_LENGTH, WAIT_FOR_SECOND_BYTE_LENGTH, WAIT_FOR_THIRD_BYTE_LENGTH, WAIT_FOR_FOURTH_BYTE_LENGTH, READING
@@ -146,14 +144,6 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
 
     @Override
     public void stop() throws IOException {
-        // do nothing
-        // Can not close the server
-        // Server is a static object
-        // so Server will last until class is unloaded
     }
 
-    @Override
-    public String getLabel() {
-        return LABEL;
-    }
 }

@@ -1,6 +1,6 @@
-package com.hongweiyi.jmeter.client;
+package com.hongweiyi.bench.client;
 
-import com.hongweiyi.jmeter.RecvCounterCallback;
+import com.hongweiyi.bench.RecvCounterCallback;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
@@ -24,7 +24,7 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
     public static final String LABEL                 = "Netty4";
     public static final String NETTY4_ALLOC_POOLED   = "pooled";
     public static final String NETTY4_ALLOC_UNPOOLED = "unpooled";
-    private String netty4AllocMethod;
+    private String             netty4AllocMethod;
 
     private EventLoopGroup     group                 = new NioEventLoopGroup();
 

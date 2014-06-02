@@ -1,4 +1,4 @@
-package com.hongweiyi.jmeter.server;
+package com.hongweiyi.bench.server;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.buffer.ChannelBuffer;
@@ -18,8 +18,6 @@ import java.util.Map;
  * @version 2014-02-23. 7:52 PM
  */
 public class Netty3TcpBenchmarkServer extends BenchmarkServer {
-
-    public static final String         LABEL            = "Netty3-Server";
 
     private static final String        STATE_ATTRIBUTE  = Netty3TcpBenchmarkServer.class.getName()
                                                           + ".state";
@@ -153,14 +151,6 @@ public class Netty3TcpBenchmarkServer extends BenchmarkServer {
 
     @Override
     public void stop() throws IOException {
-        // do nothing
-        // Can not close the server
-        // Server is a static object
-        // so Server will last until class is unloaded
     }
 
-    @Override
-    public String getLabel() {
-        return LABEL;
-    }
 }

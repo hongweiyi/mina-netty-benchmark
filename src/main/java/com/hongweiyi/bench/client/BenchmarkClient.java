@@ -1,6 +1,6 @@
-package com.hongweiyi.jmeter.client;
+package com.hongweiyi.bench.client;
 
-import com.hongweiyi.jmeter.RecvCounterCallback;
+import com.hongweiyi.bench.RecvCounterCallback;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

@@ -1,4 +1,4 @@
-package com.hongweiyi.jmeter.server;
+package com.hongweiyi.bench.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -36,5 +36,4 @@ public abstract class BenchmarkServer {
         }
     }
 
-    public abstract String getLabel();
 }
