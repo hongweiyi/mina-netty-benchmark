@@ -3,6 +3,7 @@ package com.hongweiyi.bench;
 import com.hongweiyi.bench.client.*;
 import simperf.thread.SimperfThread;
 
+import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -19,6 +20,8 @@ public class BenchmarkThread extends SimperfThread {
     private LibType               type;
 
     private int                   warmCount = 0;
+
+    private Random random  = new Random();
 
     public BenchmarkClient getClientInternal(LibType clientType) throws Exception {
         BenchmarkClient bcmClient = null;
@@ -38,8 +41,8 @@ public class BenchmarkThread extends SimperfThread {
         }
     }
 
-    public BenchmarkThread(int port, int messageSize, int warmCount, LibType clientType,
-                           String paramAlloc) {
+    public BenchmarkThread(int port, String[] hosts, int messageSize, int warmCount,
+                           LibType clientType, String paramAlloc) {
         // init send data
         byte[] data = new byte[messageSize + 4];
         data[0] = (byte) (messageSize >>> 24 & 255);
@@ -48,6 +51,11 @@ public class BenchmarkThread extends SimperfThread {
         data[3] = (byte) (messageSize & 255);
 
         this.warmCount = warmCount;
+
+        String host = "localhost";
+        if (null != hosts && hosts.length > 0) {
+            host = hosts[random.nextInt(hosts.length)];
+        }
 
         // init client
         try {
@@ -61,12 +69,14 @@ public class BenchmarkThread extends SimperfThread {
             };
             BenchmarkClient clientInternal = getClientInternal(clientType);
             if (LibType.MINA3.equals(type)) {
-                client = new Mina3Client(data, clientInternal.getClient(port, clientCallback));
+                client = new Mina3Client(data,
+                    clientInternal.getClient(port, host, clientCallback));
             } else if (LibType.NETTY3.equals(type)) {
-                client = new Netty3Client(data, clientInternal.getClient(port, clientCallback));
-            } else if (LibType.NETTY3.equals(type)) {
-                client = new Netty4Client(data, clientInternal.getClient(port, clientCallback,
-                    paramAlloc));
+                client = new Netty3Client(data, clientInternal.getClient(port, host,
+                    clientCallback));
+            } else if (LibType.NETTY4.equals(type)) {
+                client = new Netty4Client(data, clientInternal.getClient(port, host,
+                    clientCallback, paramAlloc));
             } else {
                 throw new RuntimeException("No such client type: " + type);
             }

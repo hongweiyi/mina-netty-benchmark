@@ -54,12 +54,14 @@ public class AppClient {
 
         perf.setThreadFactory(new SimperfThreadFactory() {
             int     port;
+            String[] hosts;
             LibType client;
             int     msgSize   = 1024;
             int     warmCount = -1;
             {
                 CommandLine cmd = simCommand.getCmd();
                 port = Integer.parseInt(cmd.getOptionValue("p"));
+                hosts = cmd.getOptionValues("H");
                 client = LibType.valueOf(cmd.getOptionValue("C").toUpperCase());
                 if (cmd.hasOption("m")) {
                     msgSize = Integer.parseInt(cmd.getOptionValue("m"));
@@ -71,8 +73,7 @@ public class AppClient {
 
             @Override
             public SimperfThread newThread() {
-                int msgSize = 1024;
-                return new BenchmarkThread(port, msgSize, warmCount, client, null);
+                return new BenchmarkThread(port, hosts, msgSize, warmCount, client, null);
             }
         });
 
@@ -87,11 +88,14 @@ public class AppClient {
         public BenchmarkCommand(String[] args) {
             super(args);
             Option port = new Option("p", "port", true, "[*] server port");
+            Option hosts = new Option("H", "hosts", true, "[*] server hosts, separate by ,");
             Option client = new Option("C", "client", true,
                 "[*] client type. netty3 | netty4 | mina3");
             port.setRequired(true);
+            hosts.setRequired(true);
             client.setRequired(true);
             super.getOptions().addOption(port);
+            super.getOptions().addOption(hosts);
             super.getOptions().addOption(client);
 
             super.getOptions().addOption("m", "msgsize", true, "[ ] msg size per request");

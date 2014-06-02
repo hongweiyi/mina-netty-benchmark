@@ -42,7 +42,7 @@ public class Mina3TcpBenchmarkClient extends BenchmarkClient {
     private NioTcpClient       client;
 
     @Override
-    public Object getClient(int port, final RecvCounterCallback clientCallback, String... params)
+    public Object getClient(int port, String host, final RecvCounterCallback clientCallback, String... params)
                                                                                                  throws Exception {
         client = new NioTcpClient();
         client.getSessionConfig().setSendBufferSize(64 * 1024);
@@ -93,7 +93,7 @@ public class Mina3TcpBenchmarkClient extends BenchmarkClient {
         });
 
         try {
-            return client.connect(new InetSocketAddress(port)).get();
+            return client.connect(new InetSocketAddress(host, port)).get();
         } catch (InterruptedException e) {
             throw e;
         } catch (ExecutionException e) {

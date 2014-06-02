@@ -29,7 +29,7 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
     private EventLoopGroup     group                 = new NioEventLoopGroup();
 
     @Override
-    public Object getClient(int port, final RecvCounterCallback clientCallback,
+    public Object getClient(int port, String host, final RecvCounterCallback clientCallback,
                             final String... params) throws Exception {
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(group);
@@ -82,7 +82,7 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
                 ctx.close();
             }
         });
-        return bootstrap.connect(new InetSocketAddress(port)).sync().channel();
+        return bootstrap.connect(new InetSocketAddress(host, port)).sync().channel();
     }
 
     @Override

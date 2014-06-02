@@ -17,7 +17,7 @@ public class Netty3TcpBenchmarkClient extends BenchmarkClient {
     public static final String LABEL = "Netty3";
 
     @Override
-    public Object getClient(int port, final RecvCounterCallback clientCallback, String... params)
+    public Object getClient(int port, String host, final RecvCounterCallback clientCallback, String... params)
                                                                                                  throws Exception {
         ChannelFactory factory = new NioClientSocketChannelFactory();
 
@@ -46,7 +46,7 @@ public class Netty3TcpBenchmarkClient extends BenchmarkClient {
             }
         });
 
-        return bootstrap.connect(new InetSocketAddress(port)).sync().getChannel();
+        return bootstrap.connect(new InetSocketAddress(host, port)).sync().getChannel();
     }
 
     @Override

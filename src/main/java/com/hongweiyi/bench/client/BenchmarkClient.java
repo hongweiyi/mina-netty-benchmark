@@ -22,11 +22,12 @@ public abstract class BenchmarkClient {
      *
      * get netty or mina client
      *
-     * @param port: connected port
+     * @param port: connect port
+     * @param host: connect host
      * @param clientCallback: client notification
      * @return netty: Channel object mina:IoSession object
      * @throws Exception
      */
-    public abstract Object getClient(int port, final RecvCounterCallback clientCallback,
+    public abstract Object getClient(int port, String host, final RecvCounterCallback clientCallback,
                                      String... params) throws Exception;
 }
