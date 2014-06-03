@@ -20,10 +20,6 @@ import java.io.IOException;
  */
 public class Netty4TcpBenchmarkServer extends BenchmarkServer {
 
-    private static enum State {
-        WAIT_FOR_FIRST_BYTE_LENGTH, WAIT_FOR_SECOND_BYTE_LENGTH, WAIT_FOR_THIRD_BYTE_LENGTH, WAIT_FOR_FOURTH_BYTE_LENGTH, READING
-    }
-
     private static final ByteBuf               ACK              = Unpooled.buffer(1);
 
     static {
