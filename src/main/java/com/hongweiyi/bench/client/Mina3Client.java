@@ -10,15 +10,18 @@ import java.nio.ByteBuffer;
  */
 public class Mina3Client extends Client {
 
+    IoSession client;
+
     public Mina3Client(byte[] data, Object client) {
-        super(data, client);
+        super(data);
+        this.client = (IoSession) client;
     }
 
     public void send() {
-        ((IoSession) client).write(ByteBuffer.wrap(data));
+        client.write(ByteBuffer.wrap(data));
     }
 
     public void close() {
-        ((IoSession) client).close(true);
+        client.close(true);
     }
 }

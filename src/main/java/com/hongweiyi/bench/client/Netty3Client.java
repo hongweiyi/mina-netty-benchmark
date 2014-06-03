@@ -10,18 +10,21 @@ import org.jboss.netty.channel.Channel;
  */
 public class Netty3Client extends Client {
 
+    private Channel client;
+
     public Netty3Client(byte[] data, Object client) {
-        super(data, client);
+        super(data);
+        this.client = (Channel) client;
     }
 
     public void send() {
         ChannelBuffer buf = ChannelBuffers.buffer(data.length);
         buf.writeBytes(data);
-        ((Channel) client).write(buf);
+        client.write(buf);
     }
 
     public void close() {
-        ((Channel) client).disconnect();
-        ((Channel) client).close();
+        client.disconnect();
+        client.close();
     }
 }
