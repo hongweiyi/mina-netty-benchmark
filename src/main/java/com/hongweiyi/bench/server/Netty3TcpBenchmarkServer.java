@@ -29,10 +29,6 @@ public class Netty3TcpBenchmarkServer extends BenchmarkServer {
         ACK.writeByte(0);
     }
 
-    private static enum State {
-        WAIT_FOR_FIRST_BYTE_LENGTH, WAIT_FOR_SECOND_BYTE_LENGTH, WAIT_FOR_THIRD_BYTE_LENGTH, WAIT_FOR_FOURTH_BYTE_LENGTH, READING
-    }
-
     protected static Map<String, Object> getAttributesMap(ChannelHandlerContext ctx) {
         Map<String, Object> map = (Map<String, Object>) ctx.getAttachment();
         if (map == null) {

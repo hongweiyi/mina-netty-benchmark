@@ -18,10 +18,6 @@ import java.nio.ByteBuffer;
  */
 public class Mina3TcpBenchmarkServer extends BenchmarkServer {
 
-    private static enum State {
-        WAIT_FOR_FIRST_BYTE_LENGTH, WAIT_FOR_SECOND_BYTE_LENGTH, WAIT_FOR_THIRD_BYTE_LENGTH, WAIT_FOR_FOURTH_BYTE_LENGTH, READING
-    }
-
     private static final ByteBuffer            ACK              = ByteBuffer.allocate(1);
 
     static {
