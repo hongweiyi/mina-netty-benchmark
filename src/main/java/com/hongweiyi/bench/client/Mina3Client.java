@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
  */
 public class Mina3Client extends Client {
 
-    IoSession client;
+    private IoSession client;
 
     public Mina3Client(byte[] data, Object client) {
         super(data);

@@ -8,15 +8,8 @@ public abstract class Client {
 
     protected byte[] data;
 
-    protected Object client;
-
-    public Client(byte[] data, Object client) {
-        if (null == data || null == client) {
-            return;
-        }
-
+    public Client(byte[] data) {
         this.data = data;
-        this.client = client;
     }
 
     public abstract void send();
