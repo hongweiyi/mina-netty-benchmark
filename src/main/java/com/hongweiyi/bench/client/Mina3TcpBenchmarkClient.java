@@ -36,15 +36,10 @@ import java.util.concurrent.ExecutionException;
  */
 public class Mina3TcpBenchmarkClient extends BenchmarkClient {
 
-    public static final String LABEL = "Mina3";
-
-    // The TCP client
-    private NioTcpClient       client;
-
     @Override
-    public Object getClient(int port, String host, final RecvCounterCallback clientCallback, String... params)
-                                                                                                 throws Exception {
-        client = new NioTcpClient();
+    public Object getInstance(int port, String host, final RecvCounterCallback clientCallback,
+                              String... params) throws Exception {
+        NioTcpClient client = new NioTcpClient();
         client.getSessionConfig().setSendBufferSize(64 * 1024);
         client.getSessionConfig().setTcpNoDelay(true);
         client.setIoHandler(new IoHandler() {
@@ -99,11 +94,6 @@ public class Mina3TcpBenchmarkClient extends BenchmarkClient {
         } catch (ExecutionException e) {
             throw e;
         }
-    }
-
-    @Override
-    public String getLabel() {
-        return LABEL + "-" + super.getLabel();
     }
 
 }

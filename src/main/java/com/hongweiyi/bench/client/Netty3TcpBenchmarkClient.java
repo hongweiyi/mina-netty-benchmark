@@ -14,11 +14,9 @@ import java.net.InetSocketAddress;
  */
 public class Netty3TcpBenchmarkClient extends BenchmarkClient {
 
-    public static final String LABEL = "Netty3";
-
     @Override
-    public Object getClient(int port, String host, final RecvCounterCallback clientCallback, String... params)
-                                                                                                 throws Exception {
+    public Object getInstance(int port, String host, final RecvCounterCallback clientCallback,
+                              String... params) throws Exception {
         ChannelFactory factory = new NioClientSocketChannelFactory();
 
         ClientBootstrap bootstrap = new ClientBootstrap(factory);
@@ -49,8 +47,4 @@ public class Netty3TcpBenchmarkClient extends BenchmarkClient {
         return bootstrap.connect(new InetSocketAddress(host, port)).sync().getChannel();
     }
 
-    @Override
-    public String getLabel() {
-        return LABEL + "-" + super.getLabel();
-    }
 }

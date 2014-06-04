@@ -21,7 +21,6 @@ import java.net.InetSocketAddress;
  */
 public class Netty4TcpBenchmarkClient extends BenchmarkClient {
 
-    public static final String LABEL                 = "Netty4";
     public static final String NETTY4_ALLOC_POOLED   = "pooled";
     public static final String NETTY4_ALLOC_UNPOOLED = "unpooled";
     private String             netty4AllocMethod;
@@ -29,11 +28,11 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
     private EventLoopGroup     group                 = new NioEventLoopGroup();
 
     @Override
-    public Object getClient(int port, String host, final RecvCounterCallback clientCallback,
-                            final String... params) throws Exception {
+    public Object getInstance(int port, String host, final RecvCounterCallback clientCallback,
+                              final String... params) throws Exception {
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(group);
-        bootstrap.option(ChannelOption.SO_SNDBUF, 64 * 10 * 1024);
+        bootstrap.option(ChannelOption.SO_SNDBUF, 64 * 1024);
         bootstrap.option(ChannelOption.TCP_NODELAY, true);
         bootstrap.channel(NioSocketChannel.class);
         bootstrap.handler(new ChannelInitializer<SocketChannel>() {
@@ -85,8 +84,4 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
         return bootstrap.connect(new InetSocketAddress(host, port)).sync().channel();
     }
 
-    @Override
-    public String getLabel() {
-        return LABEL + "-" + netty4AllocMethod + "-" + super.getLabel();
-    }
 }

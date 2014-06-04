@@ -48,11 +48,9 @@ public class Netty3TcpBenchmarkServer extends BenchmarkServer {
 
     private static ChannelGroup allChannels = new DefaultChannelGroup();
 
-    private ChannelFactory      factory;
-
     @Override
     public void start(int port) throws IOException {
-        factory = new NioServerSocketChannelFactory();
+        ChannelFactory factory = new NioServerSocketChannelFactory();
         ServerBootstrap bootstrap = new ServerBootstrap(factory);
         bootstrap.setOption("receiveBufferSize", 64 * 1024);
         bootstrap.setOption("tcpNoDelay", true);

@@ -120,7 +120,7 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
     public void start(int port) throws IOException {
         try {
             bootstrap = new io.netty.bootstrap.ServerBootstrap();
-            bootstrap.option(ChannelOption.SO_RCVBUF, 128 * 1024);
+            bootstrap.option(ChannelOption.SO_RCVBUF, 64 * 1024);
             bootstrap.option(ChannelOption.TCP_NODELAY, true);
 
             bootstrap.group(new NioEventLoopGroup(), new NioEventLoopGroup());
@@ -131,7 +131,7 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
                 public void initChannel(SocketChannel channel) throws Exception {
                     channel.config().setAllocator(UnpooledByteBufAllocator.DEFAULT);
                     channel.pipeline().addLast(new TestServerHandler());
-                };
+                }
             });
             bootstrap.bind();
         } finally {

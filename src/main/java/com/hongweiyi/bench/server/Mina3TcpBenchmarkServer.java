@@ -40,7 +40,7 @@ public class Mina3TcpBenchmarkServer extends BenchmarkServer {
     @Override
     public void start(int port) throws IOException {
         tcpServer = new NioTcpServer(new FixedSelectorLoopPool("Server", 1), null);
-        tcpServer.getSessionConfig().setReadBufferSize(128 * 1024);
+        tcpServer.getSessionConfig().setReadBufferSize(64 * 1024);
         tcpServer.getSessionConfig().setTcpNoDelay(true);
         tcpServer.setIoHandler(new IoHandler() {
             public void sessionOpened(IoSession session) {
