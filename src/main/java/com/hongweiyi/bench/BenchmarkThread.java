@@ -116,11 +116,11 @@ public class BenchmarkThread extends SimperfThread {
             if (recvCounter.getCount() == 1) {
                 throw new InterruptedException("recvCounter await out of time");
             }
-            recvCounter = new CountDownLatch(1); // ignore the cost of initing a new CountDownLatch
         } catch (InterruptedException e) {
             e.printStackTrace();
-            recvCounter = new CountDownLatch(1);
             return false;
+        } finally {
+            recvCounter = new CountDownLatch(1);
         }
 
         return true;
