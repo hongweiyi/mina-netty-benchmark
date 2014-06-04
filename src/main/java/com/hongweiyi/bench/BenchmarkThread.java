@@ -3,8 +3,10 @@ package com.hongweiyi.bench;
 import com.hongweiyi.bench.client.*;
 import simperf.thread.SimperfThread;
 
+import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -13,15 +15,17 @@ import java.util.concurrent.TimeUnit;
  */
 public class BenchmarkThread extends SimperfThread {
 
-    protected CountDownLatch      recvCounter;
-    protected RecvCounterCallback clientCallback;
+    protected RecvCounterCallback              clientCallback;
 
-    private Client                client;
-    private LibType               type;
+    private Client                             client;
+    private LibType                            type;
 
-    private int                   warmCount = 0;
+    private int                                warmCount     = 0;
 
-    private Random random  = new Random();
+    private static ArrayBlockingQueue<Integer> blockingQueue = new ArrayBlockingQueue<Integer>(
+                                                                 10240);
+
+    private static Map<String, Client>         clients       = new ConcurrentHashMap<String, Client>();
 
     public BenchmarkClient getClientInternal(LibType clientType) throws Exception {
         BenchmarkClient bcmClient = null;
@@ -42,7 +46,7 @@ public class BenchmarkThread extends SimperfThread {
     }
 
     public BenchmarkThread(int port, String[] hosts, int messageSize, int warmCount,
-                           LibType clientType, String paramAlloc) {
+                           int connectionNum, LibType clientType, String paramAlloc) {
         // init send data
         byte[] data = new byte[messageSize + 4];
         data[0] = (byte) (messageSize >>> 24 & 255);
@@ -54,31 +58,45 @@ public class BenchmarkThread extends SimperfThread {
 
         String host = "localhost";
         if (null != hosts && hosts.length > 0) {
+            Random random = new Random();
             host = hosts[random.nextInt(hosts.length)];
         }
 
         // init client
         try {
-            recvCounter = new CountDownLatch(1);
-
             clientCallback = new RecvCounterCallback() {
                 @Override
                 public void receive() {
-                    recvCounter.countDown();
+                    try {
+                        blockingQueue.put(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             };
-            BenchmarkClient clientInternal = getClientInternal(clientType);
-            if (LibType.MINA3.equals(type)) {
-                client = new Mina3Client(data,
-                    clientInternal.getClient(port, host, clientCallback));
-            } else if (LibType.NETTY3.equals(type)) {
-                client = new Netty3Client(data, clientInternal.getClient(port, host,
-                    clientCallback));
-            } else if (LibType.NETTY4.equals(type)) {
-                client = new Netty4Client(data, clientInternal.getClient(port, host,
-                    clientCallback, paramAlloc));
-            } else {
-                throw new RuntimeException("No such client type: " + type);
+
+            Random random = new Random();
+            String key = host + ":" + port + "" + random.nextInt(connectionNum);
+            client = clients.get(key);
+            if (client == null) {
+                BenchmarkClient clientInternal = getClientInternal(clientType);
+                synchronized (BenchmarkThread.class) {
+                    if (client == null) {
+                        if (LibType.MINA3.equals(type)) {
+                            client = new Mina3Client(data, clientInternal.getClient(port, host,
+                                clientCallback));
+                        } else if (LibType.NETTY3.equals(type)) {
+                            client = new Netty3Client(data, clientInternal.getClient(port, host,
+                                clientCallback));
+                        } else if (LibType.NETTY4.equals(type)) {
+                            client = new Netty4Client(data, clientInternal.getClient(port, host,
+                                clientCallback, paramAlloc));
+                        } else {
+                            throw new RuntimeException("No such client type: " + type);
+                        }
+                    }
+                }
+                clients.put(key, client);
             }
 
         } catch (Exception e) {
@@ -112,15 +130,20 @@ public class BenchmarkThread extends SimperfThread {
     private boolean invokeSync() {
         client.send();
         try { // async convert to sync
-            recvCounter.await(1, TimeUnit.SECONDS);
-            if (recvCounter.getCount() == 1) {
-                throw new InterruptedException("recvCounter await out of time");
+            Integer num = null;
+            int i;
+            for (i = 0; i < 3000; i++) {
+                num = blockingQueue.poll(1, TimeUnit.MILLISECONDS);
+                if (num != null) {
+                    break;
+                }
+            }
+            if (num == null) {
+                throw new InterruptedException("timeout");
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
             return false;
-        } finally {
-            recvCounter = new CountDownLatch(1);
         }
 
         return true;

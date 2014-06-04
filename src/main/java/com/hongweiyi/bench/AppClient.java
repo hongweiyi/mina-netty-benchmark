@@ -36,7 +36,7 @@ public class AppClient {
     public void waitComplete() {
         while (perf.isRunning()) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -53,11 +53,12 @@ public class AppClient {
         }
 
         perf.setThreadFactory(new SimperfThreadFactory() {
-            int     port;
+            int      port;
             String[] hosts;
-            LibType client;
-            int     msgSize   = 1024;
-            int     warmCount = -1;
+            LibType  client;
+            int      msgSize      = 1024;
+            int      warmCount    = -1;
+            int      connectinNum = 4;
             {
                 CommandLine cmd = simCommand.getCmd();
                 port = Integer.parseInt(cmd.getOptionValue("p"));
@@ -69,11 +70,18 @@ public class AppClient {
                 if (cmd.hasOption("w")) {
                     warmCount = Integer.parseInt(cmd.getOptionValue("w"));
                 }
+                if (cmd.hasOption("n")) {
+                    connectinNum = Integer.parseInt(cmd.getOptionValue("n"));
+                    if (connectinNum < 1) {
+                        connectinNum = 4;
+                    }
+                }
             }
 
             @Override
             public SimperfThread newThread() {
-                return new BenchmarkThread(port, hosts, msgSize, warmCount, client, null);
+                return new BenchmarkThread(port, hosts, msgSize, warmCount, connectinNum, client,
+                    null);
             }
         });
 
@@ -100,6 +108,8 @@ public class AppClient {
 
             super.getOptions().addOption("m", "msgsize", true, "[ ] msg size per request");
             super.getOptions().addOption("w", "warmcount", true, "[ ] request count before start");
+            super.getOptions()
+                .addOption("n", "connection", true, "[ ] max connection num per host");
         }
     }
 
