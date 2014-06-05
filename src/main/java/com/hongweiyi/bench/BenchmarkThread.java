@@ -83,14 +83,7 @@ public class BenchmarkThread extends SimperfThread {
     private boolean invokeSync() {
         client.send();
         try { // async convert to sync
-            Integer num = null;
-            int i;
-            for (i = 0; i < 3000; i++) {
-                num = blockingQueue.poll(1, TimeUnit.MILLISECONDS);
-                if (num != null) {
-                    break;
-                }
-            }
+            Integer num = blockingQueue.poll(1, TimeUnit.SECONDS);
             if (num == null) {
                 throw new InterruptedException("timeout");
             }
