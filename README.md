@@ -4,7 +4,10 @@ Benchmark test between [Mina](https://github.com/nadarei/mina) and [Netty](https
 
 Usage
 ---
-- ...
+- mvn clean install assembly:assembly
+- cd target
+- unzip *-bin.zip
+- bin/start_client.sh or bin/start_server.sh
 
 Mina / Netty version
 ---
@@ -34,7 +37,7 @@ Release Note
 
 2.0.0
 ---
-- change jmeter to [simperf](https://github.com/imbugs/simperf)
+- change jmeter to [simperf](https://github.com/hongweiyi/simperf/tree/v1.0.7)
 
 Blog
 ===
