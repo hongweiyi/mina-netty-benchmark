@@ -5,7 +5,6 @@ import com.hongweiyi.bench.client.factory.ClientFactory;
 import simperf.thread.SimperfThread;
 
 import java.util.Random;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -14,11 +13,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class BenchmarkThread extends SimperfThread {
 
-    private Client                             client;
-    private int                                warmCount     = 0;
-
-    private static ArrayBlockingQueue<Integer> blockingQueue = new ArrayBlockingQueue<Integer>(
-                                                                 10240);
+    private Client<Integer> client;
+    private int             warmCount = 0;
 
     public BenchmarkThread(int port, String[] hosts, int messageSize, int warmCount,
                            int connectionNum, LibType clientType, String paramAlloc) {
@@ -39,19 +35,7 @@ public class BenchmarkThread extends SimperfThread {
 
         // init client
         try {
-            RecvCounterCallback clientCallback = new RecvCounterCallback() {
-                @Override
-                public void receive() {
-                    try {
-                        blockingQueue.put(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-
-            client = ClientFactory.createClient(host, port, connectionNum, clientType, data,
-                clientCallback);
+            client = ClientFactory.createClient(host, port, connectionNum, clientType, data);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,7 +67,7 @@ public class BenchmarkThread extends SimperfThread {
     private boolean invokeSync() {
         client.send();
         try { // async convert to sync
-            Integer num = blockingQueue.poll(1, TimeUnit.SECONDS);
+            Integer num = client.poll(1, TimeUnit.SECONDS);
             if (num == null) {
                 throw new InterruptedException("timeout");
             }

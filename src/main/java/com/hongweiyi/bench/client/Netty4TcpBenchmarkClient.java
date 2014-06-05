@@ -28,7 +28,7 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
     private EventLoopGroup     group                 = new NioEventLoopGroup();
 
     @Override
-    public Object getInstance(int port, String host, final RecvCounterCallback clientCallback,
+    public Object getInstance(String host, int port, final RecvCounterCallback clientCallback,
                               final String... params) throws Exception {
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(group);

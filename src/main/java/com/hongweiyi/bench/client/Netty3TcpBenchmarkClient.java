@@ -15,7 +15,7 @@ import java.net.InetSocketAddress;
 public class Netty3TcpBenchmarkClient extends BenchmarkClient {
 
     @Override
-    public Object getInstance(int port, String host, final RecvCounterCallback clientCallback,
+    public Object getInstance(String host, int port, final RecvCounterCallback clientCallback,
                               String... params) throws Exception {
         ChannelFactory factory = new NioClientSocketChannelFactory();
 

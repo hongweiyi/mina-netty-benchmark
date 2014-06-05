@@ -28,7 +28,6 @@ import org.apache.mina.transport.nio.NioTcpClient;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @author hongwei.yhw
@@ -37,7 +36,7 @@ import java.util.concurrent.ExecutionException;
 public class Mina3TcpBenchmarkClient extends BenchmarkClient {
 
     @Override
-    public Object getInstance(int port, String host, final RecvCounterCallback clientCallback,
+    public Object getInstance(String host, int port, final RecvCounterCallback clientCallback,
                               String... params) throws Exception {
         NioTcpClient client = new NioTcpClient();
         client.getSessionConfig().setSendBufferSize(64 * 1024);
@@ -87,13 +86,7 @@ public class Mina3TcpBenchmarkClient extends BenchmarkClient {
             }
         });
 
-        try {
-            return client.connect(new InetSocketAddress(host, port)).get();
-        } catch (InterruptedException e) {
-            throw e;
-        } catch (ExecutionException e) {
-            throw e;
-        }
+        return client.connect(new InetSocketAddress(host, port)).get();
     }
 
 }
