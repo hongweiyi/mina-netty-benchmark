@@ -67,6 +67,8 @@ public class BenchmarkThread extends SimperfThread {
     private boolean invokeSync() {
         client.send();
         try { // async convert to sync
+            // get any response from server
+            // whether the response is return for this client.send() or not
             Integer num = client.poll(1, TimeUnit.SECONDS);
             if (num == null) {
                 throw new InterruptedException("timeout");
