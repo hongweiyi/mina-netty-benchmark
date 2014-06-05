@@ -1,7 +1,7 @@
 package com.hongweiyi.bench.client;
 
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class Client<T> {
 
     protected byte[]           data;
-    protected BlockingQueue<T> blockingQueue = new ArrayBlockingQueue<T>(1024 * 2);
+    protected BlockingQueue<T> blockingQueue = new LinkedBlockingQueue<T>(1024 * 20);
 
     public Client(byte[] data) {
         this.data = data;
