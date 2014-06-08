@@ -38,6 +38,7 @@ Release Note
 2.0.0
 ---
 - change jmeter to [simperf](https://github.com/hongweiyi/simperf/tree/v1.0.7)
+- client send a incremental id to server, server will response this id back to client
 
 Blog
 ===
