@@ -12,6 +12,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.util.Attribute;
+import io.netty.util.AttributeKey;
 
 import java.net.InetSocketAddress;
 
@@ -21,11 +23,13 @@ import java.net.InetSocketAddress;
  */
 public class Netty4TcpBenchmarkClient extends BenchmarkClient {
 
-    public static final String NETTY4_ALLOC_POOLED   = "pooled";
-    public static final String NETTY4_ALLOC_UNPOOLED = "unpooled";
-    private String             netty4AllocMethod;
+    public static final String                 NETTY4_ALLOC_POOLED   = "pooled";
+    public static final String                 NETTY4_ALLOC_UNPOOLED = "unpooled";
+    private String                             netty4AllocMethod;
 
-    private EventLoopGroup     group                 = new NioEventLoopGroup();
+    private EventLoopGroup                     group                 = new NioEventLoopGroup();
+    private static final AttributeKey<ByteBuf> CUMULATION_ATTRIBUTE  = new AttributeKey<ByteBuf>(
+                                                                         "buffer");
 
     @Override
     public Object getInstance(String host, int port, final RecvCounterCallback clientCallback,
@@ -59,10 +63,26 @@ public class Netty4TcpBenchmarkClient extends BenchmarkClient {
                                             Object message) throws Exception {
                         if (message instanceof ByteBuf) {
                             ByteBuf buffer = (ByteBuf) message;
-                            long length = buffer.readableBytes();
-                            while (length-- > 0) { // server responses only one byte
-                                clientCallback.receive();
+                            ByteBuf cumulation;
+                            Attribute<ByteBuf> cumulationAttr = ctx.attr(CUMULATION_ATTRIBUTE);
+                            if (cumulationAttr.get() != null) {
+                                cumulation = cumulationAttr.get();
+                            } else {
+                                cumulation = UnpooledByteBufAllocator.DEFAULT.buffer(64 * 1024);
                             }
+                            cumulation.writeBytes(buffer);
+                            while (cumulation.readableBytes() >= 8) {
+                                long id = cumulation.readLong();
+                                clientCallback.receive(id);
+                            }
+
+                            if (cumulation.readableBytes() == 0) {
+                                cumulation.clear();
+                            } else {
+                                cumulation.discardReadBytes();
+                            }
+
+                            ctx.attr(CUMULATION_ATTRIBUTE).set(cumulation);
                         } else {
                             throw new IllegalArgumentException(message.getClass().getName());
                         }

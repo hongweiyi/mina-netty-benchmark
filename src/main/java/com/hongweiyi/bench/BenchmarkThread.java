@@ -6,6 +6,7 @@ import simperf.thread.SimperfThread;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author hongwei.yhw
@@ -13,17 +14,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class BenchmarkThread extends SimperfThread {
 
-    private Client<Integer> client;
-    private int             warmCount = 0;
+    private Client<Integer>   client;
+    private int               warmCount = 0;
+    private static AtomicLong GLOBAL_ID = new AtomicLong(0);
 
     public BenchmarkThread(int port, String[] hosts, int messageSize, int warmCount,
                            int connectionNum, LibType clientType, String paramAlloc) {
         // init send data
-        byte[] data = new byte[messageSize + 4];
-        data[0] = (byte) (messageSize >>> 24 & 255);
-        data[1] = (byte) (messageSize >>> 16 & 255);
-        data[2] = (byte) (messageSize >>> 8 & 255);
-        data[3] = (byte) (messageSize & 255);
+        byte[] data = new byte[messageSize];
 
         this.warmCount = warmCount;
 
@@ -65,20 +63,20 @@ public class BenchmarkThread extends SimperfThread {
      * @return is invoked success
      */
     private boolean invokeSync() {
-        client.send();
+        long id = GLOBAL_ID.getAndDecrement();
+        client.send(id);
         try { // async convert to sync
-            // get any response from server
-            // whether the response is return for this client.send() or not
-            Integer num = client.poll(1, TimeUnit.SECONDS);
+              // get any response from server
+              // whether the response is return for this client.send() or not
+            Integer num = client.poll(id, 3, TimeUnit.SECONDS);
             if (num == null) {
-                throw new InterruptedException("timeout");
+                throw new Exception("timeout: " + id);
             }
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
 
         return true;
     }
-
 }

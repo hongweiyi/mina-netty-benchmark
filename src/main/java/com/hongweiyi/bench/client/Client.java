@@ -1,8 +1,6 @@
 package com.hongweiyi.bench.client;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @author hongwei.yhw
@@ -10,32 +8,50 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class Client<T> {
 
-    protected byte[]           data;
-    protected BlockingQueue<T> blockingQueue = new LinkedBlockingQueue<T>(1024 * 20);
+    protected byte[]                                     data;
+    protected ConcurrentMap<Long, ArrayBlockingQueue<T>> responses = new ConcurrentHashMap<Long, ArrayBlockingQueue<T>>(
+                                                                       1024 * 20);
 
     public Client(byte[] data) {
         this.data = data;
     }
 
-    public boolean put(T obj) {
+    public boolean put(long id) {
+        ArrayBlockingQueue<T> responseQueue = new ArrayBlockingQueue<T>(1);
+        responses.put(id, responseQueue);
+
+        return true;
+    }
+
+    public boolean put(long id, T obj) {
         try {
-            blockingQueue.put(obj);
+            ArrayBlockingQueue<T> responseQueue = responses.get(id);
+            responseQueue.put(obj);
         } catch (InterruptedException e) {
             return false;
         }
         return true;
     }
 
-    public T poll(long timeout, TimeUnit unit) {
+    public T poll(long id, long timeout, TimeUnit unit) {
         try {
-            return blockingQueue.poll(timeout, unit);
+            ArrayBlockingQueue<T> responseQueue = responses.get(id);
+            T t = responseQueue.poll(timeout, unit);
+            if (t != null) {
+                responses.remove(id);
+            }
+            return t;
         } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
-
     }
 
     public abstract void send();
+
+    public void send(long id) {
+        put(id);
+    }
 
     public abstract void close();
 

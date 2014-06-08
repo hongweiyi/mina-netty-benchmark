@@ -24,6 +24,7 @@ import org.apache.mina.api.IdleStatus;
 import org.apache.mina.api.IoHandler;
 import org.apache.mina.api.IoService;
 import org.apache.mina.api.IoSession;
+import org.apache.mina.session.AttributeKey;
 import org.apache.mina.transport.nio.NioTcpClient;
 
 import java.net.InetSocketAddress;
@@ -34,6 +35,12 @@ import java.nio.ByteBuffer;
  * @version 2014-02-23. 9:16 PM
  */
 public class Mina3TcpBenchmarkClient extends BenchmarkClient {
+
+    private static final AttributeKey<ByteBuffer> CUMULATION_ATTRIBUTE = new AttributeKey<ByteBuffer>(
+                                                                           ByteBuffer.class,
+                                                                           Mina3TcpBenchmarkClient.class
+                                                                               .getName()
+                                                                                   + ".buffer");
 
     @Override
     public Object getInstance(String host, int port, final RecvCounterCallback clientCallback,
@@ -51,10 +58,25 @@ public class Mina3TcpBenchmarkClient extends BenchmarkClient {
             public void messageReceived(IoSession session, Object message) {
                 if (message instanceof ByteBuffer) {
                     ByteBuffer buffer = (ByteBuffer) message;
-                    int length = buffer.remaining();
-                    while (length-- > 0) { // server responses only one byte
-                        clientCallback.receive();
+                    ByteBuffer cumulation = session.getAttribute(CUMULATION_ATTRIBUTE);
+                    if (cumulation == null) {
+                        cumulation = ByteBuffer.allocate(64 * 1024 * 10);
                     }
+
+                    cumulation.put(buffer);
+                    cumulation.flip();
+
+                    while (cumulation.remaining() >= 8) {
+                        long id = cumulation.getLong();
+                        clientCallback.receive(id);
+                    }
+
+                    if (cumulation.remaining() == 0) {
+                        cumulation.clear();
+                    } else {
+                        cumulation.compact();
+                    }
+                    session.setAttribute(CUMULATION_ATTRIBUTE, cumulation);
                 } else {
                     throw new IllegalArgumentException(message.getClass().getName());
                 }

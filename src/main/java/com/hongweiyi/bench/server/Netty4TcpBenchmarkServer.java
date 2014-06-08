@@ -1,8 +1,10 @@
 package com.hongweiyi.bench.server;
 
+import com.hongweiyi.bench.SimpleProtocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.buffer.UnpooledByteBufAllocator;
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -20,18 +22,15 @@ import java.io.IOException;
  */
 public class Netty4TcpBenchmarkServer extends BenchmarkServer {
 
-    private static final ByteBuf               ACK              = Unpooled.buffer(1);
+    private static final AttributeKey<ByteBuf> CUMULATION_ATTRIBUTE = new AttributeKey<ByteBuf>(
+                                                                        "buffer");
 
-    static {
-        ACK.writeByte(0);
-    }
+    private static final AttributeKey<Integer> LENGTH_ATTRIBUTE     = new AttributeKey<Integer>(
+                                                                        "length");
 
-    private static final AttributeKey<ByteBuf> CUMULATION_ATTRIBUTE = new AttributeKey<ByteBuf>("buffer");
+    private static final AttributeKey<Long>    ID_ATTRIBUTE         = new AttributeKey<Long>("id");
 
-    private static final AttributeKey<Integer> LENGTH_ATTRIBUTE = new AttributeKey<Integer>(
-                                                                    "length");
-
-    private io.netty.bootstrap.ServerBootstrap bootstrap        = null;
+    private io.netty.bootstrap.ServerBootstrap bootstrap            = null;
 
     private class TestServerHandler extends ChannelInboundHandlerAdapter {
         @Override
@@ -60,9 +59,11 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
                                                                                            throws Exception {
             ByteBuf buffer = (ByteBuf) message;
             int length = 0;
+            long id = 0;
             ByteBuf cumulation;
             Attribute<ByteBuf> cumulationAttribute = ctx.attr(CUMULATION_ATTRIBUTE);
             Attribute<Integer> lengthAttribute = ctx.attr(LENGTH_ATTRIBUTE);
+            Attribute<Long> idAttribute = ctx.attr(ID_ATTRIBUTE);
 
             if (lengthAttribute.get() != null) {
                 length = lengthAttribute.get();
@@ -72,6 +73,9 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
             } else {
                 cumulation = UnpooledByteBufAllocator.DEFAULT.buffer(64 * 1024);
             }
+            if (idAttribute.get() != null) {
+                id = idAttribute.get();
+            }
 
             cumulation.writeBytes(buffer);
 
@@ -80,11 +84,9 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
             while (cumulation.readableBytes() > 0) {
                 int remaining = cumulation.readableBytes();
                 if (length == 0) { // has nothing more to read
-                    if (remaining >= 4) {
-                        length = (cumulation.readByte() & 255) << 24;
-                        length += (cumulation.readByte() & 255) << 16;
-                        length += (cumulation.readByte() & 255) << 8;
-                        length += (cumulation.readByte() & 255);
+                    if (remaining >= SimpleProtocol.HEADER_LENGTH) {
+                        length = cumulation.readInt();
+                        id = cumulation.readLong();
                         remaining = cumulation.readableBytes();
                     } else {
                         break; // remaining data cannot satisfied header length demand
@@ -94,21 +96,21 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
                 int readerIndex = cumulation.readerIndex();
 
                 if ((length == 0)) { // only header, no body data
-                    ctx.writeAndFlush(ACK.retain(1).resetReaderIndex());
+                    write(ctx, id);
                 } else if (length > remaining) { // body length less than expect length
                     length -= remaining;
                     cumulation.setIndex(readerIndex + remaining, cumulation.writerIndex());
                 } else if (length == remaining) {
                     cumulation.setIndex(readerIndex + remaining, cumulation.writerIndex());
                     length = 0;
-                    ctx.writeAndFlush(ACK.retain(1).resetReaderIndex());
+                    write(ctx, id);
                 } else if (length < remaining) {
                     cumulation.setIndex(readerIndex + length, cumulation.writerIndex());
                     length = 0;
-                    ctx.writeAndFlush(ACK.retain(1).resetReaderIndex());
+                    write(ctx, id);
                 }
             }
-            if (cumulation.readableBytes() > 0) {
+            if (cumulation.readableBytes() == 0) {
                 cumulation.clear();
             } else {
                 cumulation.discardReadBytes();
@@ -116,6 +118,7 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
 
             ctx.attr(CUMULATION_ATTRIBUTE).set(cumulation);
             ctx.attr(LENGTH_ATTRIBUTE).set(length);
+            ctx.attr(ID_ATTRIBUTE).set(id);
             buffer.release();
         }
     }
@@ -146,4 +149,9 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
     public void stop() throws IOException {
     }
 
+    private void write(ChannelHandlerContext ctx, long id) {
+        ByteBuf ack = Unpooled.buffer(8);
+        ack.writeLong(id);
+        ctx.writeAndFlush(ack);
+    }
 }

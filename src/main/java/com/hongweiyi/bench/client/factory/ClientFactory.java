@@ -17,8 +17,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ClientFactory {
     private static Map<String, Client<Integer>> clients = new ConcurrentHashMap<String, Client<Integer>>();
 
-    public static Client<Integer> createClient(String host, int port, int connectionNum, LibType type,
-                                      byte[] data) throws Exception {
+    public static Client<Integer> createClient(String host, int port, int connectionNum,
+                                               LibType type, byte[] data) throws Exception {
         Random random = new Random();
         String key = host + ":" + port + "" + random.nextInt(connectionNum);
         Client<Integer> client = clients.get(key);

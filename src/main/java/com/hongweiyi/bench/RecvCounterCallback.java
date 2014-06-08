@@ -6,6 +6,6 @@ package com.hongweiyi.bench;
  */
 public interface RecvCounterCallback {
 
-    public void receive();
+    public void receive(long id);
 
 }

@@ -1,5 +1,6 @@
 package com.hongweiyi.bench.server;
 
+import com.hongweiyi.bench.SimpleProtocol;
 import org.apache.mina.api.IdleStatus;
 import org.apache.mina.api.IoHandler;
 import org.apache.mina.api.IoService;
@@ -18,22 +19,21 @@ import java.nio.ByteBuffer;
  */
 public class Mina3TcpBenchmarkServer extends BenchmarkServer {
 
-    private static final ByteBuffer               ACK              = ByteBuffer.allocate(1);
+    private static final AttributeKey<ByteBuffer> CUMULATION_ATTRIBUTE = new AttributeKey<ByteBuffer>(
+                                                                           ByteBuffer.class,
+                                                                           Mina3TcpBenchmarkServer.class
+                                                                               .getName()
+                                                                                   + ".buffer");
 
-    static {
-        ACK.put((byte) 0);
-        ACK.rewind();
-    }
-
-    private static final AttributeKey<ByteBuffer> CUMULATIN_ATTRIBUTE = new AttributeKey<ByteBuffer>(
-                                                                       ByteBuffer.class,
-                                                                       Mina3TcpBenchmarkServer.class
-                                                                           .getName() + ".buf");
-
-    private static final AttributeKey<Integer>    LENGTH_ATTRIBUTE = new AttributeKey<Integer>(
-                                                                       Integer.class,
-                                                                       Mina3TcpBenchmarkServer.class
-                                                                           .getName() + ".length");
+    private static final AttributeKey<Integer>    LENGTH_ATTRIBUTE     = new AttributeKey<Integer>(
+                                                                           Integer.class,
+                                                                           Mina3TcpBenchmarkServer.class
+                                                                               .getName()
+                                                                                   + ".length");
+    private static final AttributeKey<Long>       ID_ATTRIBUTE         = new AttributeKey<Long>(
+                                                                           Long.class,
+                                                                           Mina3TcpBenchmarkServer.class
+                                                                               .getName() + ".id");
 
     private NioTcpServer                          tcpServer;
 
@@ -44,7 +44,7 @@ public class Mina3TcpBenchmarkServer extends BenchmarkServer {
         tcpServer.getSessionConfig().setTcpNoDelay(true);
         tcpServer.setIoHandler(new IoHandler() {
             public void sessionOpened(IoSession session) {
-                session.setAttribute(CUMULATIN_ATTRIBUTE, ByteBuffer.allocate(64 * 1024));
+                session.setAttribute(CUMULATION_ATTRIBUTE, ByteBuffer.allocate(64 * 1024));
                 session.setAttribute(LENGTH_ATTRIBUTE, 0);
             }
 
@@ -52,11 +52,19 @@ public class Mina3TcpBenchmarkServer extends BenchmarkServer {
                 if (message instanceof ByteBuffer) {
                     ByteBuffer buffer = (ByteBuffer) message;
 
-                    ByteBuffer cumulation = session.getAttribute(CUMULATIN_ATTRIBUTE);
+                    ByteBuffer cumulation = session.getAttribute(CUMULATION_ATTRIBUTE);
+                    if (cumulation == null) {
+                        cumulation = ByteBuffer.allocate(64 * 1024);
+                    }
                     int length = 0;
+                    long id = 0;
 
                     if (session.getAttribute(LENGTH_ATTRIBUTE) != null) {
                         length = session.getAttribute(LENGTH_ATTRIBUTE);
+                    }
+
+                    if (session.getAttribute(ID_ATTRIBUTE) != null) {
+                        id = session.getAttribute(ID_ATTRIBUTE);
                     }
 
                     cumulation.put(buffer);
@@ -67,11 +75,9 @@ public class Mina3TcpBenchmarkServer extends BenchmarkServer {
                     while (cumulation.remaining() > 0) {
                         int remaining = cumulation.remaining();
                         if (length == 0) { // has nothing more to read
-                            if (remaining >= 4) {
-                                length = (cumulation.get() & 255) << 24;
-                                length += (cumulation.get() & 255) << 16;
-                                length += (cumulation.get() & 255) << 8;
-                                length += (cumulation.get() & 255);
+                            if (remaining >= SimpleProtocol.HEADER_LENGTH) {
+                                length = cumulation.getInt();
+                                id = cumulation.getLong();
                                 remaining = cumulation.remaining();
                             } else {
                                 break; // remaining data cannot satisfied header length demand
@@ -81,29 +87,30 @@ public class Mina3TcpBenchmarkServer extends BenchmarkServer {
                         int readerIndex = cumulation.position();
 
                         if ((length == 0)) { // only header, no body data
-                            session.write(ACK.slice());
+                            write(session, id);
                         } else if (length > remaining) { // body length less than expect length
                             cumulation.position(readerIndex + remaining);
                             length -= remaining;
                         } else if (length == remaining) {
                             cumulation.position(readerIndex + remaining);
                             length = 0;
-                            session.write(ACK.slice());
+                            write(session, id);
                         } else if (length < remaining) {
                             cumulation.position(readerIndex + length);
                             length = 0;
-                            session.write(ACK.slice());
+                            write(session, id);
                         }
                     }
 
-                    if (cumulation.remaining() > 0) {
+                    if (cumulation.remaining() == 0) {
                         cumulation.clear();
                     } else {
                         cumulation.compact();
                     }
 
-                    session.setAttribute(CUMULATIN_ATTRIBUTE, cumulation);
+                    session.setAttribute(CUMULATION_ATTRIBUTE, cumulation);
                     session.setAttribute(LENGTH_ATTRIBUTE, length);
+                    session.setAttribute(ID_ATTRIBUTE, id);
                 }
             }
 
@@ -133,10 +140,22 @@ public class Mina3TcpBenchmarkServer extends BenchmarkServer {
         });
 
         tcpServer.bind(new InetSocketAddress(port));
+        try {
+            Thread.sleep(1000000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void stop() throws IOException {
     }
 
+    private void write(IoSession session, long id) {
+        ByteBuffer byteBuffer = ByteBuffer.allocate(8);
+        byteBuffer.putLong(id);
+        byteBuffer.flip();
+
+        session.write(byteBuffer);
+    }
 }
