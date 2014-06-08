@@ -18,24 +18,24 @@ import java.nio.ByteBuffer;
  */
 public class Mina3TcpBenchmarkServer extends BenchmarkServer {
 
-    private static final ByteBuffer            ACK              = ByteBuffer.allocate(1);
+    private static final ByteBuffer               ACK              = ByteBuffer.allocate(1);
 
     static {
         ACK.put((byte) 0);
         ACK.rewind();
     }
 
-    private static final AttributeKey<State>   STATE_ATTRIBUTE  = new AttributeKey<State>(
-                                                                    State.class,
-                                                                    Mina3TcpBenchmarkServer.class
-                                                                        .getName() + ".state");
+    private static final AttributeKey<ByteBuffer> CUMULATIN_ATTRIBUTE = new AttributeKey<ByteBuffer>(
+                                                                       ByteBuffer.class,
+                                                                       Mina3TcpBenchmarkServer.class
+                                                                           .getName() + ".buf");
 
-    private static final AttributeKey<Integer> LENGTH_ATTRIBUTE = new AttributeKey<Integer>(
-                                                                    Integer.class,
-                                                                    Mina3TcpBenchmarkServer.class
-                                                                        .getName() + ".length");
+    private static final AttributeKey<Integer>    LENGTH_ATTRIBUTE = new AttributeKey<Integer>(
+                                                                       Integer.class,
+                                                                       Mina3TcpBenchmarkServer.class
+                                                                           .getName() + ".length");
 
-    private NioTcpServer                       tcpServer;
+    private NioTcpServer                          tcpServer;
 
     @Override
     public void start(int port) throws IOException {
@@ -44,57 +44,66 @@ public class Mina3TcpBenchmarkServer extends BenchmarkServer {
         tcpServer.getSessionConfig().setTcpNoDelay(true);
         tcpServer.setIoHandler(new IoHandler() {
             public void sessionOpened(IoSession session) {
-                session.setAttribute(STATE_ATTRIBUTE, State.WAIT_FOR_FIRST_BYTE_LENGTH);
+                session.setAttribute(CUMULATIN_ATTRIBUTE, ByteBuffer.allocate(64 * 1024));
+                session.setAttribute(LENGTH_ATTRIBUTE, 0);
             }
 
             public void messageReceived(IoSession session, Object message) {
                 if (message instanceof ByteBuffer) {
                     ByteBuffer buffer = (ByteBuffer) message;
 
-                    State state = session.getAttribute(STATE_ATTRIBUTE);
+                    ByteBuffer cumulation = session.getAttribute(CUMULATIN_ATTRIBUTE);
                     int length = 0;
 
                     if (session.getAttribute(LENGTH_ATTRIBUTE) != null) {
                         length = session.getAttribute(LENGTH_ATTRIBUTE);
                     }
 
-                    while (buffer.remaining() > 0) {
-                        switch (state) {
-                            case WAIT_FOR_FIRST_BYTE_LENGTH:
-                                length = (buffer.get() & 255) << 24;
-                                state = State.WAIT_FOR_SECOND_BYTE_LENGTH;
-                                break;
-                            case WAIT_FOR_SECOND_BYTE_LENGTH:
-                                length += (buffer.get() & 255) << 16;
-                                state = State.WAIT_FOR_THIRD_BYTE_LENGTH;
-                                break;
-                            case WAIT_FOR_THIRD_BYTE_LENGTH:
-                                length += (buffer.get() & 255) << 8;
-                                state = State.WAIT_FOR_FOURTH_BYTE_LENGTH;
-                                break;
-                            case WAIT_FOR_FOURTH_BYTE_LENGTH:
-                                length += (buffer.get() & 255);
-                                state = State.READING;
-                                if ((length == 0) && (buffer.remaining() == 0)) {
-                                    session.write(ACK.slice());
-                                    state = State.WAIT_FOR_FIRST_BYTE_LENGTH;
-                                }
-                                break;
-                            case READING:
-                                int remaining = buffer.remaining();
-                                if (length > remaining) {
-                                    length -= remaining;
-                                    buffer.position(buffer.position() + remaining);
-                                } else {
-                                    buffer.position(buffer.position() + length);
-                                    session.write(ACK.slice());
-                                    state = State.WAIT_FOR_FIRST_BYTE_LENGTH;
-                                    length = 0;
-                                }
+                    cumulation.put(buffer);
+                    cumulation.flip();
+
+                    // I'm too lazy to write a independent DecodeHandler
+                    // Aha...
+                    while (cumulation.remaining() > 0) {
+                        int remaining = cumulation.remaining();
+                        if (length == 0) { // has nothing more to read
+                            if (remaining >= 4) {
+                                length = (cumulation.get() & 255) << 24;
+                                length += (cumulation.get() & 255) << 16;
+                                length += (cumulation.get() & 255) << 8;
+                                length += (cumulation.get() & 255);
+                                remaining = cumulation.remaining();
+                            } else {
+                                break; // remaining data cannot satisfied header length demand
+                            }
+                        }
+
+                        int readerIndex = cumulation.position();
+
+                        if ((length == 0)) { // only header, no body data
+                            session.write(ACK.slice());
+                        } else if (length > remaining) { // body length less than expect length
+                            cumulation.position(readerIndex + remaining);
+                            length -= remaining;
+                        } else if (length == remaining) {
+                            cumulation.position(readerIndex + remaining);
+                            length = 0;
+                            session.write(ACK.slice());
+                        } else if (length < remaining) {
+                            cumulation.position(readerIndex + length);
+                            length = 0;
+                            session.write(ACK.slice());
                         }
                     }
+
+                    if (cumulation.remaining() > 0) {
+                        cumulation.clear();
+                    } else {
+                        cumulation.compact();
+                    }
+
+                    session.setAttribute(CUMULATIN_ATTRIBUTE, cumulation);
                     session.setAttribute(LENGTH_ATTRIBUTE, length);
-                    session.setAttribute(STATE_ATTRIBUTE, state);
                 }
             }
 

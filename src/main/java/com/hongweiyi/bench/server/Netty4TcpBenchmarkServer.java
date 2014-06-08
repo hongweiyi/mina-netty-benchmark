@@ -26,7 +26,7 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
         ACK.writeByte(0);
     }
 
-    private static final AttributeKey<State>   STATE_ATTRIBUTE  = new AttributeKey<State>("state");
+    private static final AttributeKey<ByteBuf> CUMULATION_ATTRIBUTE = new AttributeKey<ByteBuf>("buffer");
 
     private static final AttributeKey<Integer> LENGTH_ATTRIBUTE = new AttributeKey<Integer>(
                                                                     "length");
@@ -41,7 +41,7 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
 
         public void channelRegistered(io.netty.channel.ChannelHandlerContext ctx) throws Exception {
             System.out.println("childChannelOpen");
-            ctx.attr(STATE_ATTRIBUTE).set(State.WAIT_FOR_FIRST_BYTE_LENGTH);
+            ctx.attr(CUMULATION_ATTRIBUTE).set(UnpooledByteBufAllocator.DEFAULT.buffer(64 * 1024));
         }
 
         @Override
@@ -59,58 +59,62 @@ public class Netty4TcpBenchmarkServer extends BenchmarkServer {
         public void channelRead(io.netty.channel.ChannelHandlerContext ctx, Object message)
                                                                                            throws Exception {
             ByteBuf buffer = (ByteBuf) message;
-            State state = ctx.attr(STATE_ATTRIBUTE).get();
             int length = 0;
+            ByteBuf cumulation;
+            Attribute<ByteBuf> cumulationAttribute = ctx.attr(CUMULATION_ATTRIBUTE);
             Attribute<Integer> lengthAttribute = ctx.attr(LENGTH_ATTRIBUTE);
 
             if (lengthAttribute.get() != null) {
                 length = lengthAttribute.get();
             }
-
-            while (buffer.readableBytes() > 0) {
-                switch (state) {
-                    case WAIT_FOR_FIRST_BYTE_LENGTH:
-                        length = (buffer.readByte() & 255) << 24;
-                        state = State.WAIT_FOR_SECOND_BYTE_LENGTH;
-                        break;
-
-                    case WAIT_FOR_SECOND_BYTE_LENGTH:
-                        length += (buffer.readByte() & 255) << 16;
-                        state = State.WAIT_FOR_THIRD_BYTE_LENGTH;
-                        break;
-
-                    case WAIT_FOR_THIRD_BYTE_LENGTH:
-                        length += (buffer.readByte() & 255) << 8;
-                        state = State.WAIT_FOR_FOURTH_BYTE_LENGTH;
-                        break;
-
-                    case WAIT_FOR_FOURTH_BYTE_LENGTH:
-                        length += (buffer.readByte() & 255);
-                        state = State.READING;
-
-                        if ((length == 0) && (buffer.readableBytes() == 0)) {
-                            ctx.writeAndFlush(ACK.retain(1).resetReaderIndex());
-                            state = State.WAIT_FOR_FIRST_BYTE_LENGTH;
-                        }
-
-                        break;
-
-                    case READING:
-                        int remaining = buffer.readableBytes();
-
-                        if (length > remaining) {
-                            length -= remaining;
-                            buffer.skipBytes(remaining);
-                        } else {
-                            buffer.skipBytes(length);
-                            ctx.writeAndFlush(ACK.retain(1).resetReaderIndex());
-                            state = State.WAIT_FOR_FIRST_BYTE_LENGTH;
-                            length = 0;
-                        }
-                }
+            if (cumulationAttribute.get() != null) {
+                cumulation = cumulationAttribute.get();
+            } else {
+                cumulation = UnpooledByteBufAllocator.DEFAULT.buffer(64 * 1024);
             }
 
-            ctx.attr(STATE_ATTRIBUTE).set(state);
+            cumulation.writeBytes(buffer);
+
+            // I'm too lazy to write a independent DecodeHandler
+            // Aha... U can use {@link ByteToMessageDecoder}
+            while (cumulation.readableBytes() > 0) {
+                int remaining = cumulation.readableBytes();
+                if (length == 0) { // has nothing more to read
+                    if (remaining >= 4) {
+                        length = (cumulation.readByte() & 255) << 24;
+                        length += (cumulation.readByte() & 255) << 16;
+                        length += (cumulation.readByte() & 255) << 8;
+                        length += (cumulation.readByte() & 255);
+                        remaining = cumulation.readableBytes();
+                    } else {
+                        break; // remaining data cannot satisfied header length demand
+                    }
+                }
+
+                int readerIndex = cumulation.readerIndex();
+
+                if ((length == 0)) { // only header, no body data
+                    ctx.writeAndFlush(ACK.retain(1).resetReaderIndex());
+                } else if (length > remaining) { // body length less than expect length
+                    length -= remaining;
+                    cumulation.setIndex(readerIndex + remaining, cumulation.writerIndex());
+                } else if (length == remaining) {
+                    cumulation.setIndex(readerIndex + remaining, cumulation.writerIndex());
+                    length = 0;
+                    ctx.writeAndFlush(ACK.retain(1).resetReaderIndex());
+                } else if (length < remaining) {
+                    cumulation.setIndex(readerIndex + length, cumulation.writerIndex());
+                    length = 0;
+                    ctx.writeAndFlush(ACK.retain(1).resetReaderIndex());
+                }
+            }
+            if (cumulation.readableBytes() > 0) {
+                cumulation.clear();
+            } else {
+                cumulation.discardReadBytes();
+            }
+
+            ctx.attr(CUMULATION_ATTRIBUTE).set(cumulation);
             ctx.attr(LENGTH_ATTRIBUTE).set(length);
             buffer.release();
         }
