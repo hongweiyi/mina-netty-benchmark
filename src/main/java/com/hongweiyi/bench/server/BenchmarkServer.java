@@ -9,9 +9,6 @@ import java.util.NoSuchElementException;
  * @version 2014-02-23. 7:52 PM
  */
 public abstract class BenchmarkServer {
-    protected static enum State {
-        WAIT_FOR_FIRST_BYTE_LENGTH, WAIT_FOR_SECOND_BYTE_LENGTH, WAIT_FOR_THIRD_BYTE_LENGTH, WAIT_FOR_FOURTH_BYTE_LENGTH, READING
-    }
 
     public abstract void start(int port) throws IOException;
 

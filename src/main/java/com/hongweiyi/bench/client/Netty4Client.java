@@ -1,15 +1,13 @@
 package com.hongweiyi.bench.client;
 
 import com.hongweiyi.bench.RecvCounterCallback;
-
+import com.hongweiyi.bench.ResponseFuture;
 import com.hongweiyi.bench.SimpleProtocol;
 import io.netty.buffer.AbstractByteBufAllocator;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.buffer.UnpooledByteBufAllocator;
 import io.netty.channel.Channel;
-
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @author hongwei.yhw
@@ -66,9 +64,9 @@ public class Netty4Client<T> extends Client<T> {
             @Override
             public void receive(long id) {
                 try {
-                    ArrayBlockingQueue<T> result = responses.get(id);
-                    result.put(callbackPutObj);
-                } catch (InterruptedException e) {
+                    ResponseFuture<T> result = responses.get(id);
+                    result.handleResponse(callbackPutObj);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

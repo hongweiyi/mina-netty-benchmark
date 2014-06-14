@@ -1,0 +1,318 @@
+======> 1402219655639
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402219656646 ,avgTps:69233.30 ,count:69441 ,duration:1003 ,fail:0 ,tTps:69233.30 ,tCount:69441 ,tDuration:1003 ,tFail:0}
+{time:1402219657647 ,avgTps:71342.29 ,count:143398 ,duration:2010 ,fail:0 ,tTps:73442.90 ,tCount:73957 ,tDuration:1007 ,tFail:0}
+{time:1402219658649 ,avgTps:71942.21 ,count:216618 ,duration:3011 ,fail:0 ,tTps:73146.85 ,tCount:73220 ,tDuration:1001 ,tFail:0}
+{time:1402219659650 ,avgTps:72520.93 ,count:290954 ,duration:4012 ,fail:0 ,tTps:74261.73 ,tCount:74336 ,tDuration:1001 ,tFail:0}
+{time:1402219660651 ,avgTps:72954.32 ,count:365720 ,duration:5013 ,fail:0 ,tTps:74691.31 ,tCount:74766 ,tDuration:1001 ,tFail:0}
+{time:1402219661652 ,avgTps:73324.74 ,count:440975 ,duration:6014 ,fail:0 ,tTps:75179.82 ,tCount:75255 ,tDuration:1001 ,tFail:0}
+{time:1402219662653 ,avgTps:73471.06 ,count:515473 ,duration:7016 ,fail:0 ,tTps:74349.30 ,tCount:74498 ,tDuration:1002 ,tFail:0}
+{time:1402219663654 ,avgTps:73621.18 ,count:590221 ,duration:8017 ,fail:0 ,tTps:74673.33 ,tCount:74748 ,tDuration:1001 ,tFail:0}
+{time:1402219664655 ,avgTps:73781.44 ,count:665361 ,duration:9018 ,fail:0 ,tTps:75064.94 ,tCount:75140 ,tDuration:1001 ,tFail:0}
+{time:1402219665657 ,avgTps:73858.11 ,count:739172 ,duration:10008 ,fail:0 ,tTps:74556.56 ,tCount:73811 ,tDuration:990 ,tFail:0}
+======> 1402220233172
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402220234176 ,avgTps:61601.59 ,count:61848 ,duration:1004 ,fail:0 ,tTps:61601.59 ,tCount:61848 ,tDuration:1004 ,tFail:0}
+{time:1402220235178 ,avgTps:67199.70 ,count:134937 ,duration:2008 ,fail:0 ,tTps:72797.81 ,tCount:73089 ,tDuration:1004 ,tFail:0}
+{time:1402220236179 ,avgTps:69287.47 ,count:208486 ,duration:3009 ,fail:0 ,tTps:73475.52 ,tCount:73549 ,tDuration:1001 ,tFail:0}
+{time:1402220237180 ,avgTps:70213.47 ,count:281556 ,duration:4010 ,fail:0 ,tTps:72997.00 ,tCount:73070 ,tDuration:1001 ,tFail:0}
+{time:1402220238181 ,avgTps:70839.16 ,count:354975 ,duration:5011 ,fail:0 ,tTps:73345.66 ,tCount:73419 ,tDuration:1001 ,tFail:0}
+{time:1402220239182 ,avgTps:71223.39 ,count:428195 ,duration:6012 ,fail:0 ,tTps:73146.85 ,tCount:73220 ,tDuration:1001 ,tFail:0}
+{time:1402220240183 ,avgTps:71459.86 ,count:501148 ,duration:7013 ,fail:0 ,tTps:72880.12 ,tCount:72953 ,tDuration:1001 ,tFail:0}
+{time:1402220241184 ,avgTps:71627.65 ,count:574024 ,duration:8014 ,fail:0 ,tTps:72803.20 ,tCount:72876 ,tDuration:1001 ,tFail:0}
+{time:1402220242186 ,avgTps:71801.77 ,count:647293 ,duration:9015 ,fail:0 ,tTps:73195.80 ,tCount:73269 ,tDuration:1001 ,tFail:0}
+{time:1402220243187 ,avgTps:71893.30 ,count:719652 ,duration:10010 ,fail:0 ,tTps:72722.61 ,tCount:72359 ,tDuration:995 ,tFail:0}
+======> 1402230920668
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402230921673 ,avgTps:40881.47 ,count:41045 ,duration:1004 ,fail:0 ,tTps:40881.47 ,tCount:41045 ,tDuration:1004 ,tFail:0}
+{time:1402230922674 ,avgTps:54566.45 ,count:109624 ,duration:2009 ,fail:0 ,tTps:68237.81 ,tCount:68579 ,tDuration:1005 ,tFail:0}
+{time:1402230923676 ,avgTps:61184.66 ,count:184227 ,duration:3011 ,fail:0 ,tTps:74454.09 ,tCount:74603 ,tDuration:1002 ,tFail:0}
+{time:1402230924678 ,avgTps:64339.73 ,count:258131 ,duration:4012 ,fail:0 ,tTps:73830.17 ,tCount:73904 ,tDuration:1001 ,tFail:0}
+{time:1402230925679 ,avgTps:66323.95 ,count:332482 ,duration:5013 ,fail:0 ,tTps:74276.73 ,tCount:74351 ,tDuration:1001 ,tFail:0}
+{time:1402230926681 ,avgTps:67724.19 ,count:407361 ,duration:6015 ,fail:0 ,tTps:74729.54 ,tCount:74879 ,tDuration:1002 ,tFail:0}
+{time:1402230927682 ,avgTps:68680.92 ,count:481934 ,duration:7017 ,fail:0 ,tTps:74424.15 ,tCount:74573 ,tDuration:1002 ,tFail:0}
+{time:1402230928683 ,avgTps:69453.60 ,count:556879 ,duration:8018 ,fail:0 ,tTps:74870.13 ,tCount:74945 ,tDuration:1001 ,tFail:0}
+{time:1402230929684 ,avgTps:63631.11 ,count:573889 ,duration:9019 ,fail:0 ,tTps:16993.01 ,tCount:17010 ,tDuration:1001 ,tFail:0}
+{time:1402230930686 ,avgTps:64739.64 ,count:648756 ,duration:10021 ,fail:0 ,tTps:74717.56 ,tCount:74867 ,tDuration:1002 ,tFail:0}
+{time:1402230931689 ,avgTps:64809.11 ,count:653924 ,duration:10090 ,fail:0 ,tTps:74898.55 ,tCount:5168 ,tDuration:69 ,tFail:0}
+======> 1402231665064
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402231666068 ,avgTps:60422.73 ,count:60604 ,duration:1003 ,fail:0 ,tTps:60422.73 ,tCount:60604 ,tDuration:1003 ,tFail:0}
+{time:1402231667070 ,avgTps:65824.62 ,count:132110 ,duration:2007 ,fail:0 ,tTps:71221.12 ,tCount:71506 ,tDuration:1004 ,tFail:0}
+{time:1402231668071 ,avgTps:67669.21 ,count:203549 ,duration:3008 ,fail:0 ,tTps:71367.63 ,tCount:71439 ,tDuration:1001 ,tFail:0}
+{time:1402231669072 ,avgTps:68692.52 ,count:275457 ,duration:4010 ,fail:0 ,tTps:71764.47 ,tCount:71908 ,tDuration:1002 ,tFail:0}
+{time:1402231670073 ,avgTps:69194.17 ,count:346732 ,duration:5011 ,fail:0 ,tTps:71203.80 ,tCount:71275 ,tDuration:1001 ,tFail:0}
+{time:1402231671075 ,avgTps:69698.44 ,count:419027 ,duration:6012 ,fail:0 ,tTps:72222.77 ,tCount:72295 ,tDuration:1001 ,tFail:0}
+{time:1402231672076 ,avgTps:69911.18 ,count:490357 ,duration:7014 ,fail:0 ,tTps:71187.63 ,tCount:71330 ,tDuration:1002 ,tFail:0}
+{time:1402231673077 ,avgTps:70109.04 ,count:561924 ,duration:8015 ,fail:0 ,tTps:71495.51 ,tCount:71567 ,tDuration:1001 ,tFail:0}
+{time:1402231674197 ,avgTps:70184.70 ,count:616362 ,duration:8782 ,fail:0 ,tTps:70975.23 ,tCount:54438 ,tDuration:767 ,tFail:0}
+{time:1402231675199 ,avgTps:67740.26 ,count:686683 ,duration:10137 ,fail:0 ,tTps:51897.42 ,tCount:70321 ,tDuration:1355 ,tFail:0}
+{time:1402231676201 ,avgTps:67741.44 ,count:686695 ,duration:10137 ,fail:0 ,tTps:N/A ,tCount:12 ,tDuration:0 ,tFail:0}
+======> 1402231911951
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402231912958 ,avgTps:64365.90 ,count:64559 ,duration:1003 ,fail:0 ,tTps:64365.90 ,tCount:64559 ,tDuration:1003 ,tFail:0}
+{time:1402231913959 ,avgTps:67709.95 ,count:136097 ,duration:2010 ,fail:0 ,tTps:71040.72 ,tCount:71538 ,tDuration:1007 ,tFail:0}
+{time:1402231914960 ,avgTps:68564.12 ,count:206378 ,duration:3010 ,fail:0 ,tTps:70281.00 ,tCount:70281 ,tDuration:1000 ,tFail:0}
+{time:1402231915961 ,avgTps:69140.58 ,count:277392 ,duration:4012 ,fail:0 ,tTps:70872.26 ,tCount:71014 ,tDuration:1002 ,tFail:0}
+{time:1402231916962 ,avgTps:69496.91 ,count:348388 ,duration:5013 ,fail:0 ,tTps:70925.08 ,tCount:70996 ,tDuration:1001 ,tFail:0}
+{time:1402231917963 ,avgTps:69643.34 ,count:418835 ,duration:6014 ,fail:0 ,tTps:70376.63 ,tCount:70447 ,tDuration:1001 ,tFail:0}
+{time:1402231918965 ,avgTps:69863.44 ,count:490092 ,duration:7015 ,fail:0 ,tTps:71185.81 ,tCount:71257 ,tDuration:1001 ,tFail:0}
+{time:1402231919965 ,avgTps:70009.73 ,count:561198 ,duration:8016 ,fail:0 ,tTps:71034.97 ,tCount:71106 ,tDuration:1001 ,tFail:0}
+{time:1402231920967 ,avgTps:70162.23 ,count:632723 ,duration:9018 ,fail:0 ,tTps:71382.23 ,tCount:71525 ,tDuration:1002 ,tFail:0}
+{time:1402231921969 ,avgTps:70216.63 ,count:702728 ,duration:10008 ,fail:0 ,tTps:70712.13 ,tCount:70005 ,tDuration:990 ,tFail:0}
+======> 1402232032216
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402232033234 ,avgTps:72719.56 ,count:72865 ,duration:1002 ,fail:0 ,tTps:72719.56 ,tCount:72865 ,tDuration:1002 ,tFail:0}
+{time:1402232034235 ,avgTps:75704.80 ,count:152848 ,duration:2019 ,fail:0 ,tTps:78646.02 ,tCount:79983 ,tDuration:1017 ,tFail:0}
+{time:1402232035237 ,avgTps:76986.43 ,count:232499 ,duration:3020 ,fail:0 ,tTps:79571.43 ,tCount:79651 ,tDuration:1001 ,tFail:0}
+{time:1402232036238 ,avgTps:77900.80 ,count:313317 ,duration:4022 ,fail:0 ,tTps:80656.69 ,tCount:80818 ,tDuration:1002 ,tFail:0}
+{time:1402232037240 ,avgTps:77949.23 ,count:391539 ,duration:5023 ,fail:0 ,tTps:78143.86 ,tCount:78222 ,tDuration:1001 ,tFail:0}
+{time:1402232038241 ,avgTps:77971.12 ,count:469776 ,duration:6025 ,fail:0 ,tTps:78080.84 ,tCount:78237 ,tDuration:1002 ,tFail:0}
+{time:1402232039242 ,avgTps:78273.41 ,count:549949 ,duration:7026 ,fail:0 ,tTps:80092.91 ,tCount:80173 ,tDuration:1001 ,tFail:0}
+{time:1402232040244 ,avgTps:78372.99 ,count:629100 ,duration:8027 ,fail:0 ,tTps:79071.93 ,tCount:79151 ,tDuration:1001 ,tFail:0}
+{time:1402232041245 ,avgTps:78600.18 ,count:709681 ,duration:9029 ,fail:0 ,tTps:80420.16 ,tCount:80581 ,tDuration:1002 ,tFail:0}
+{time:1402232042246 ,avgTps:78767.81 ,count:788387 ,duration:10009 ,fail:0 ,tTps:80312.24 ,tCount:78706 ,tDuration:980 ,tFail:0}
+======> 1402234301700
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402234302711 ,avgTps:65744.77 ,count:65942 ,duration:1003 ,fail:0 ,tTps:65744.77 ,tCount:65942 ,tDuration:1003 ,tFail:0}
+{time:1402234303712 ,avgTps:69814.70 ,count:140537 ,duration:2013 ,fail:0 ,tTps:73856.44 ,tCount:74595 ,tDuration:1010 ,tFail:0}
+{time:1402234304714 ,avgTps:70877.57 ,count:213625 ,duration:3014 ,fail:0 ,tTps:73014.98 ,tCount:73088 ,tDuration:1001 ,tFail:0}
+{time:1402234305715 ,avgTps:71602.59 ,count:287556 ,duration:4016 ,fail:0 ,tTps:73783.43 ,tCount:73931 ,tDuration:1002 ,tFail:0}
+{time:1402234306716 ,avgTps:71958.74 ,count:361017 ,duration:5017 ,fail:0 ,tTps:73387.61 ,tCount:73461 ,tDuration:1001 ,tFail:0}
+{time:1402234307718 ,avgTps:71214.86 ,count:428571 ,duration:6018 ,fail:0 ,tTps:67486.52 ,tCount:67554 ,tDuration:1001 ,tFail:0}
+{time:1402234308719 ,avgTps:71532.91 ,count:502161 ,duration:7020 ,fail:0 ,tTps:73443.12 ,tCount:73590 ,tDuration:1002 ,tFail:0}
+{time:1402234309721 ,avgTps:71949.77 ,count:577181 ,duration:8022 ,fail:0 ,tTps:74870.26 ,tCount:75020 ,tDuration:1002 ,tFail:0}
+{time:1402234310722 ,avgTps:72121.13 ,count:650749 ,duration:9023 ,fail:0 ,tTps:73494.51 ,tCount:73568 ,tDuration:1001 ,tFail:0}
+{time:1402234311724 ,avgTps:72153.16 ,count:722181 ,duration:10009 ,fail:0 ,tTps:72446.25 ,tCount:71432 ,tDuration:986 ,tFail:0}
+======> 1402234405202
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402234406266 ,avgTps:56483.54 ,count:60042 ,duration:1063 ,fail:0 ,tTps:56483.54 ,tCount:60042 ,tDuration:1063 ,tFail:0}
+{time:1402234407268 ,avgTps:64378.51 ,count:133006 ,duration:2066 ,fail:0 ,tTps:72745.77 ,tCount:72964 ,tDuration:1003 ,tFail:0}
+{time:1402234408270 ,avgTps:67176.01 ,count:206096 ,duration:3068 ,fail:0 ,tTps:72944.11 ,tCount:73090 ,tDuration:1002 ,tFail:0}
+{time:1402234409271 ,avgTps:68108.38 ,count:277133 ,duration:4069 ,fail:0 ,tTps:70966.03 ,tCount:71037 ,tDuration:1001 ,tFail:0}
+{time:1402234410273 ,avgTps:68552.27 ,count:347560 ,duration:5070 ,fail:0 ,tTps:70356.64 ,tCount:70427 ,tDuration:1001 ,tFail:0}
+{time:1402234411274 ,avgTps:69052.54 ,count:419287 ,duration:6072 ,fail:0 ,tTps:71583.84 ,tCount:71727 ,tDuration:1002 ,tFail:0}
+{time:1402234412276 ,avgTps:69382.30 ,count:490741 ,duration:7073 ,fail:0 ,tTps:71382.62 ,tCount:71454 ,tDuration:1001 ,tFail:0}
+{time:1402234413277 ,avgTps:69616.10 ,count:562150 ,duration:8075 ,fail:0 ,tTps:71266.47 ,tCount:71409 ,tDuration:1002 ,tFail:0}
+{time:1402234414405 ,avgTps:69847.48 ,count:617312 ,duration:8838 ,fail:0 ,tTps:72296.20 ,tCount:55162 ,tDuration:763 ,tFail:0}
+{time:1402234415407 ,avgTps:67449.43 ,count:688254 ,duration:10204 ,fail:0 ,tTps:51934.11 ,tCount:70942 ,tDuration:1366 ,tFail:0}
+======> 1402234426744
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402234427747 ,avgTps:50119.64 ,count:50270 ,duration:1003 ,fail:0 ,tTps:50119.64 ,tCount:50270 ,tDuration:1003 ,tFail:0}
+{time:1402234428749 ,avgTps:63259.35 ,count:126835 ,duration:2005 ,fail:0 ,tTps:76412.17 ,tCount:76565 ,tDuration:1002 ,tFail:0}
+{time:1402234429750 ,avgTps:67566.87 ,count:203106 ,duration:3006 ,fail:0 ,tTps:76194.80 ,tCount:76271 ,tDuration:1001 ,tFail:0}
+{time:1402234430751 ,avgTps:69902.16 ,count:280098 ,duration:4007 ,fail:0 ,tTps:76915.09 ,tCount:76992 ,tDuration:1001 ,tFail:0}
+{time:1402234431752 ,avgTps:71160.34 ,count:356371 ,duration:5008 ,fail:0 ,tTps:76196.80 ,tCount:76273 ,tDuration:1001 ,tFail:0}
+{time:1402234432753 ,avgTps:72234.44 ,count:434129 ,duration:6010 ,fail:0 ,tTps:77602.80 ,tCount:77758 ,tDuration:1002 ,tFail:0}
+{time:1402234433754 ,avgTps:72991.02 ,count:511740 ,duration:7011 ,fail:0 ,tTps:77533.47 ,tCount:77611 ,tDuration:1001 ,tFail:0}
+{time:1402234434770 ,avgTps:73434.37 ,count:566693 ,duration:7717 ,fail:0 ,tTps:77837.11 ,tCount:54953 ,tDuration:706 ,tFail:0}
+{time:1402234435772 ,avgTps:71008.97 ,count:641069 ,duration:9028 ,fail:0 ,tTps:56732.27 ,tCount:74376 ,tDuration:1311 ,tFail:0}
+{time:1402234436773 ,avgTps:71569.65 ,count:717772 ,duration:10029 ,fail:0 ,tTps:76626.38 ,tCount:76703 ,tDuration:1001 ,tFail:0}
+{time:1402234437775 ,avgTps:71569.65 ,count:717772 ,duration:10029 ,fail:0 ,tTps:N/A ,tCount:0 ,tDuration:0 ,tFail:0}
+======> 1402234803507
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402234804510 ,avgTps:67459.63 ,count:67662 ,duration:1003 ,fail:0 ,tTps:67459.63 ,tCount:67662 ,tDuration:1003 ,tFail:0}
+{time:1402234805511 ,avgTps:73982.55 ,count:148335 ,duration:2005 ,fail:0 ,tTps:80511.98 ,tCount:80673 ,tDuration:1002 ,tFail:0}
+{time:1402234806512 ,avgTps:76179.97 ,count:228997 ,duration:3006 ,fail:0 ,tTps:80581.42 ,tCount:80662 ,tDuration:1001 ,tFail:0}
+{time:1402234807513 ,avgTps:77530.08 ,count:310663 ,duration:4007 ,fail:0 ,tTps:81584.41 ,tCount:81666 ,tDuration:1001 ,tFail:0}
+{time:1402234808515 ,avgTps:78087.86 ,count:391064 ,duration:5008 ,fail:0 ,tTps:80320.68 ,tCount:80401 ,tDuration:1001 ,tFail:0}
+{time:1402234809516 ,avgTps:78827.29 ,count:473752 ,duration:6010 ,fail:0 ,tTps:82522.95 ,tCount:82688 ,tDuration:1002 ,tFail:0}
+{time:1402234810517 ,avgTps:78654.69 ,count:551448 ,duration:7011 ,fail:0 ,tTps:77618.38 ,tCount:77696 ,tDuration:1001 ,tFail:0}
+{time:1402234811518 ,avgTps:75735.15 ,count:606790 ,duration:8012 ,fail:0 ,tTps:55286.71 ,tCount:55342 ,tDuration:1001 ,tFail:0}
+{time:1402234812520 ,avgTps:76468.16 ,count:689284 ,duration:9014 ,fail:0 ,tTps:82329.34 ,tCount:82494 ,tDuration:1002 ,tFail:0}
+{time:1402234813521 ,avgTps:77012.09 ,count:771276 ,duration:10015 ,fail:0 ,tTps:81910.09 ,tCount:81992 ,tDuration:1001 ,tFail:0}
+{time:1402234814524 ,avgTps:77093.80 ,count:784969 ,duration:10182 ,fail:0 ,tTps:81994.02 ,tCount:13693 ,tDuration:167 ,tFail:0}
+======> 1402240106360
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402240107372 ,avgTps:50145.42 ,count:50346 ,duration:1004 ,fail:0 ,tTps:50145.42 ,tCount:50346 ,tDuration:1004 ,tFail:0}
+{time:1402240108374 ,avgTps:56429.56 ,count:113762 ,duration:2016 ,fail:0 ,tTps:62664.03 ,tCount:63416 ,tDuration:1012 ,tFail:0}
+{time:1402240109375 ,avgTps:58571.76 ,count:176711 ,duration:3017 ,fail:0 ,tTps:62886.11 ,tCount:62949 ,tDuration:1001 ,tFail:0}
+{time:1402240110376 ,avgTps:59740.17 ,count:240036 ,duration:4018 ,fail:0 ,tTps:63261.74 ,tCount:63325 ,tDuration:1001 ,tFail:0}
+{time:1402240111377 ,avgTps:60508.87 ,count:303694 ,duration:5019 ,fail:0 ,tTps:63594.41 ,tCount:63658 ,tDuration:1001 ,tFail:0}
+{time:1402240112378 ,avgTps:60999.01 ,count:367214 ,duration:6020 ,fail:0 ,tTps:63456.54 ,tCount:63520 ,tDuration:1001 ,tFail:0}
+{time:1402240113379 ,avgTps:61314.34 ,count:430488 ,duration:7021 ,fail:0 ,tTps:63210.79 ,tCount:63274 ,tDuration:1001 ,tFail:0}
+{time:1402240114381 ,avgTps:61598.73 ,count:494145 ,duration:8022 ,fail:0 ,tTps:63593.41 ,tCount:63657 ,tDuration:1001 ,tFail:0}
+{time:1402240115382 ,avgTps:61799.43 ,count:557678 ,duration:9024 ,fail:0 ,tTps:63406.19 ,tCount:63533 ,tDuration:1002 ,tFail:0}
+{time:1402240116383 ,avgTps:62088.52 ,count:621444 ,duration:10009 ,fail:0 ,tTps:64737.05 ,tCount:63766 ,tDuration:985 ,tFail:0}
+======> 1402240155608
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402240156621 ,avgTps:58010.97 ,count:58185 ,duration:1003 ,fail:0 ,tTps:58010.97 ,tCount:58185 ,tDuration:1003 ,tFail:0}
+{time:1402240157622 ,avgTps:57667.66 ,count:116258 ,duration:2016 ,fail:0 ,tTps:57327.74 ,tCount:58073 ,tDuration:1013 ,tFail:0}
+{time:1402240158624 ,avgTps:59874.71 ,count:180642 ,duration:3017 ,fail:0 ,tTps:64319.68 ,tCount:64384 ,tDuration:1001 ,tFail:0}
+{time:1402240159626 ,avgTps:60823.34 ,count:244449 ,duration:4019 ,fail:0 ,tTps:63679.64 ,tCount:63807 ,tDuration:1002 ,tFail:0}
+{time:1402240160627 ,avgTps:61374.63 ,count:308162 ,duration:5021 ,fail:0 ,tTps:63585.83 ,tCount:63713 ,tDuration:1002 ,tFail:0}
+{time:1402240161628 ,avgTps:61795.58 ,count:372133 ,duration:6022 ,fail:0 ,tTps:63907.09 ,tCount:63971 ,tDuration:1001 ,tFail:0}
+{time:1402240162630 ,avgTps:62003.99 ,count:435454 ,duration:7023 ,fail:0 ,tTps:63257.74 ,tCount:63321 ,tDuration:1001 ,tFail:0}
+{time:1402240163632 ,avgTps:62104.54 ,count:498451 ,duration:8026 ,fail:0 ,tTps:62808.57 ,tCount:62997 ,tDuration:1003 ,tFail:0}
+{time:1402240164633 ,avgTps:61875.59 ,count:558551 ,duration:9027 ,fail:0 ,tTps:60039.96 ,tCount:60100 ,tDuration:1001 ,tFail:0}
+{time:1402240165635 ,avgTps:62002.60 ,count:620584 ,duration:10009 ,fail:0 ,tTps:63170.06 ,tCount:62033 ,tDuration:982 ,tFail:0}
+======> 1402240279904
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402240280915 ,avgTps:50064.80 ,count:50215 ,duration:1003 ,fail:0 ,tTps:50064.80 ,tCount:50215 ,tDuration:1003 ,tFail:0}
+{time:1402240281916 ,avgTps:55251.24 ,count:111276 ,duration:2014 ,fail:0 ,tTps:60396.64 ,tCount:61061 ,tDuration:1011 ,tFail:0}
+{time:1402240282917 ,avgTps:57276.61 ,count:172689 ,duration:3015 ,fail:0 ,tTps:61351.65 ,tCount:61413 ,tDuration:1001 ,tFail:0}
+{time:1402240283919 ,avgTps:58081.67 ,count:233256 ,duration:4016 ,fail:0 ,tTps:60506.49 ,tCount:60567 ,tDuration:1001 ,tFail:0}
+{time:1402240284920 ,avgTps:58074.53 ,count:291418 ,duration:5018 ,fail:0 ,tTps:58045.91 ,tCount:58162 ,tDuration:1002 ,tFail:0}
+{time:1402240285921 ,avgTps:58601.76 ,count:352724 ,duration:6019 ,fail:0 ,tTps:61244.75 ,tCount:61306 ,tDuration:1001 ,tFail:0}
+{time:1402240286922 ,avgTps:58928.21 ,count:413676 ,duration:7020 ,fail:0 ,tTps:60891.11 ,tCount:60952 ,tDuration:1001 ,tFail:0}
+{time:1402240287923 ,avgTps:59112.71 ,count:474143 ,duration:8021 ,fail:0 ,tTps:60406.59 ,tCount:60467 ,tDuration:1001 ,tFail:0}
+{time:1402240288924 ,avgTps:59407.89 ,count:535978 ,duration:9022 ,fail:0 ,tTps:61773.23 ,tCount:61835 ,tDuration:1001 ,tFail:0}
+{time:1402240289927 ,avgTps:59714.70 ,count:597983 ,duration:10014 ,fail:0 ,tTps:62505.04 ,tCount:62005 ,tDuration:992 ,tFail:0}
+======> 1402240301548
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402240302557 ,avgTps:59752.74 ,count:59932 ,duration:1003 ,fail:0 ,tTps:59752.74 ,tCount:59932 ,tDuration:1003 ,tFail:0}
+{time:1402240303558 ,avgTps:61952.76 ,count:124587 ,duration:2011 ,fail:0 ,tTps:64141.86 ,tCount:64655 ,tDuration:1008 ,tFail:0}
+{time:1402240304559 ,avgTps:62678.29 ,count:188787 ,duration:3012 ,fail:0 ,tTps:64135.86 ,tCount:64200 ,tDuration:1001 ,tFail:0}
+{time:1402240305560 ,avgTps:63284.08 ,count:253959 ,duration:4013 ,fail:0 ,tTps:65106.89 ,tCount:65172 ,tDuration:1001 ,tFail:0}
+{time:1402240306561 ,avgTps:63463.61 ,count:318270 ,duration:5015 ,fail:0 ,tTps:64182.63 ,tCount:64311 ,tDuration:1002 ,tFail:0}
+{time:1402240307562 ,avgTps:62459.28 ,count:375755 ,duration:6016 ,fail:0 ,tTps:57427.57 ,tCount:57485 ,tDuration:1001 ,tFail:0}
+{time:1402240308564 ,avgTps:62532.28 ,count:438789 ,duration:7017 ,fail:0 ,tTps:62971.03 ,tCount:63034 ,tDuration:1001 ,tFail:0}
+{time:1402240309565 ,avgTps:62887.13 ,count:504229 ,duration:8018 ,fail:0 ,tTps:65374.63 ,tCount:65440 ,tDuration:1001 ,tFail:0}
+{time:1402240310566 ,avgTps:63096.34 ,count:569129 ,duration:9020 ,fail:0 ,tTps:64770.46 ,tCount:64900 ,tDuration:1002 ,tFail:0}
+{time:1402240311568 ,avgTps:63204.31 ,count:632612 ,duration:10009 ,fail:0 ,tTps:64189.08 ,tCount:63483 ,tDuration:989 ,tFail:0}
+======> 1402240330105
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402240331117 ,avgTps:63447.66 ,count:63638 ,duration:1003 ,fail:0 ,tTps:63447.66 ,tCount:63638 ,tDuration:1003 ,tFail:0}
+{time:1402240332118 ,avgTps:64818.77 ,count:130545 ,duration:2014 ,fail:0 ,tTps:66179.03 ,tCount:66907 ,tDuration:1011 ,tFail:0}
+{time:1402240333118 ,avgTps:65425.54 ,count:197258 ,duration:3015 ,fail:0 ,tTps:66646.35 ,tCount:66713 ,tDuration:1001 ,tFail:0}
+{time:1402240334119 ,avgTps:65714.39 ,count:263909 ,duration:4016 ,fail:0 ,tTps:66584.41 ,tCount:66651 ,tDuration:1001 ,tFail:0}
+{time:1402240335120 ,avgTps:65888.38 ,count:330562 ,duration:5017 ,fail:0 ,tTps:66586.41 ,tCount:66653 ,tDuration:1001 ,tFail:0}
+{time:1402240336122 ,avgTps:65905.78 ,count:396621 ,duration:6018 ,fail:0 ,tTps:65993.01 ,tCount:66059 ,tDuration:1001 ,tFail:0}
+{time:1402240337123 ,avgTps:65900.98 ,count:462559 ,duration:7019 ,fail:0 ,tTps:65872.13 ,tCount:65938 ,tDuration:1001 ,tFail:0}
+{time:1402240338124 ,avgTps:65965.22 ,count:529107 ,duration:8021 ,fail:0 ,tTps:66415.17 ,tCount:66548 ,tDuration:1002 ,tFail:0}
+{time:1402240339125 ,avgTps:66150.41 ,count:596809 ,duration:9022 ,fail:0 ,tTps:67634.37 ,tCount:67702 ,tDuration:1001 ,tFail:0}
+{time:1402240340127 ,avgTps:66207.75 ,count:662872 ,duration:10012 ,fail:0 ,tTps:66730.30 ,tCount:66063 ,tDuration:990 ,tFail:0}
+======> 1402240365445
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402240366456 ,avgTps:52762.71 ,count:52921 ,duration:1003 ,fail:0 ,tTps:52762.71 ,tCount:52921 ,tDuration:1003 ,tFail:0}
+{time:1402240367458 ,avgTps:56739.95 ,count:114331 ,duration:2015 ,fail:0 ,tTps:60681.82 ,tCount:61410 ,tDuration:1012 ,tFail:0}
+{time:1402240368459 ,avgTps:57756.30 ,count:174193 ,duration:3016 ,fail:0 ,tTps:59802.20 ,tCount:59862 ,tDuration:1001 ,tFail:0}
+{time:1402240369461 ,avgTps:58716.77 ,count:235924 ,duration:4018 ,fail:0 ,tTps:61607.79 ,tCount:61731 ,tDuration:1002 ,tFail:0}
+{time:1402240370463 ,avgTps:59226.54 ,count:297258 ,duration:5019 ,fail:0 ,tTps:61272.73 ,tCount:61334 ,tDuration:1001 ,tFail:0}
+{time:1402240371464 ,avgTps:59485.05 ,count:358100 ,duration:6020 ,fail:0 ,tTps:60781.22 ,tCount:60842 ,tDuration:1001 ,tFail:0}
+{time:1402240372465 ,avgTps:59520.36 ,count:417952 ,duration:7022 ,fail:0 ,tTps:59732.54 ,tCount:59852 ,tDuration:1002 ,tFail:0}
+{time:1402240373466 ,avgTps:59438.36 ,count:476874 ,duration:8023 ,fail:0 ,tTps:58863.14 ,tCount:58922 ,tDuration:1001 ,tFail:0}
+{time:1402240374467 ,avgTps:59656.25 ,count:538338 ,duration:9024 ,fail:0 ,tTps:61402.60 ,tCount:61464 ,tDuration:1001 ,tFail:0}
+{time:1402240375469 ,avgTps:59689.47 ,count:597611 ,duration:10012 ,fail:0 ,tTps:59992.91 ,tCount:59273 ,tDuration:988 ,tFail:0}
+======> 1402240472069
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402240473081 ,avgTps:56773.68 ,count:56944 ,duration:1003 ,fail:0 ,tTps:56773.68 ,tCount:56944 ,tDuration:1003 ,tFail:0}
+{time:1402240474082 ,avgTps:58729.03 ,count:118339 ,duration:2015 ,fail:0 ,tTps:60667.00 ,tCount:61395 ,tDuration:1012 ,tFail:0}
+{time:1402240475083 ,avgTps:60970.49 ,count:183887 ,duration:3016 ,fail:0 ,tTps:65482.52 ,tCount:65548 ,tDuration:1001 ,tFail:0}
+{time:1402240476084 ,avgTps:62132.44 ,count:249586 ,duration:4017 ,fail:0 ,tTps:65633.37 ,tCount:65699 ,tDuration:1001 ,tFail:0}
+{time:1402240477085 ,avgTps:62816.46 ,count:315213 ,duration:5018 ,fail:0 ,tTps:65561.44 ,tCount:65627 ,tDuration:1001 ,tFail:0}
+{time:1402240478087 ,avgTps:63181.39 ,count:380352 ,duration:6020 ,fail:0 ,tTps:65008.98 ,tCount:65139 ,tDuration:1002 ,tFail:0}
+{time:1402240479089 ,avgTps:63351.18 ,count:444852 ,duration:7022 ,fail:0 ,tTps:64371.26 ,tCount:64500 ,tDuration:1002 ,tFail:0}
+{time:1402240480091 ,avgTps:63588.43 ,count:510170 ,duration:8023 ,fail:0 ,tTps:65252.75 ,tCount:65318 ,tDuration:1001 ,tFail:0}
+{time:1402240481092 ,avgTps:63812.94 ,count:575848 ,duration:9024 ,fail:0 ,tTps:65612.39 ,tCount:65678 ,tDuration:1001 ,tFail:0}
+{time:1402240482094 ,avgTps:64089.43 ,count:641407 ,duration:10008 ,fail:0 ,tTps:66625.00 ,tCount:65559 ,tDuration:984 ,tFail:0}
+======> 1402240531280
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=10000}, ExtInfo: null}
+{time:1402240532289 ,avgTps:52833.50 ,count:52992 ,duration:1003 ,fail:0 ,tTps:52833.50 ,tCount:52992 ,tDuration:1003 ,tFail:0}
+{time:1402240533290 ,avgTps:57764.79 ,count:116165 ,duration:2011 ,fail:0 ,tTps:62671.63 ,tCount:63173 ,tDuration:1008 ,tFail:0}
+{time:1402240534292 ,avgTps:58657.82 ,count:176736 ,duration:3013 ,fail:0 ,tTps:60450.10 ,tCount:60571 ,tDuration:1002 ,tFail:0}
+{time:1402240535293 ,avgTps:59830.64 ,count:240220 ,duration:4015 ,fail:0 ,tTps:63357.29 ,tCount:63484 ,tDuration:1002 ,tFail:0}
+{time:1402240536294 ,avgTps:60307.82 ,count:302504 ,duration:5016 ,fail:0 ,tTps:62221.78 ,tCount:62284 ,tDuration:1001 ,tFail:0}
+{time:1402240537295 ,avgTps:60725.94 ,count:365388 ,duration:6017 ,fail:0 ,tTps:62821.18 ,tCount:62884 ,tDuration:1001 ,tFail:0}
+{time:1402240538297 ,avgTps:61086.21 ,count:428703 ,duration:7018 ,fail:0 ,tTps:63251.75 ,tCount:63315 ,tDuration:1001 ,tFail:0}
+{time:1402240539298 ,avgTps:61555.61 ,count:493676 ,duration:8020 ,fail:0 ,tTps:64843.31 ,tCount:64973 ,tDuration:1002 ,tFail:0}
+{time:1402240540300 ,avgTps:61745.93 ,count:557010 ,duration:9021 ,fail:0 ,tTps:63270.73 ,tCount:63334 ,tDuration:1001 ,tFail:0}
+{time:1402240541301 ,avgTps:61987.52 ,count:620619 ,duration:10012 ,fail:0 ,tTps:64186.68 ,tCount:63609 ,tDuration:991 ,tFail:0}
+======> 1402240550978
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=20000}, ExtInfo: null}
+{time:1402240551988 ,avgTps:57192.42 ,count:57364 ,duration:1003 ,fail:0 ,tTps:57192.42 ,tCount:57364 ,tDuration:1003 ,tFail:0}
+{time:1402240552989 ,avgTps:59529.32 ,count:119773 ,duration:2012 ,fail:0 ,tTps:61852.33 ,tCount:62409 ,tDuration:1009 ,tFail:0}
+{time:1402240553990 ,avgTps:60716.66 ,count:183000 ,duration:3014 ,fail:0 ,tTps:63100.80 ,tCount:63227 ,tDuration:1002 ,tFail:0}
+{time:1402240554992 ,avgTps:59838.11 ,count:240250 ,duration:4015 ,fail:0 ,tTps:57192.81 ,tCount:57250 ,tDuration:1001 ,tFail:0}
+{time:1402240555994 ,avgTps:59924.06 ,count:300639 ,duration:5017 ,fail:0 ,tTps:60268.46 ,tCount:60389 ,tDuration:1002 ,tFail:0}
+{time:1402240556995 ,avgTps:60111.48 ,count:361811 ,duration:6019 ,fail:0 ,tTps:61049.90 ,tCount:61172 ,tDuration:1002 ,tFail:0}
+{time:1402240557996 ,avgTps:60411.82 ,count:424091 ,duration:7020 ,fail:0 ,tTps:62217.78 ,tCount:62280 ,tDuration:1001 ,tFail:0}
+{time:1402240558997 ,avgTps:60682.59 ,count:486735 ,duration:8021 ,fail:0 ,tTps:62581.42 ,tCount:62644 ,tDuration:1001 ,tFail:0}
+{time:1402240559999 ,avgTps:60915.99 ,count:549645 ,duration:9023 ,fail:0 ,tTps:62784.43 ,tCount:62910 ,tDuration:1002 ,tFail:0}
+{time:1402240561000 ,avgTps:60948.02 ,count:610943 ,duration:10024 ,fail:0 ,tTps:61236.76 ,tCount:61298 ,tDuration:1001 ,tFail:0}
+{time:1402240562001 ,avgTps:60998.19 ,count:672505 ,duration:11025 ,fail:0 ,tTps:61500.50 ,tCount:61562 ,tDuration:1001 ,tFail:0}
+{time:1402240563002 ,avgTps:61098.04 ,count:734765 ,duration:12026 ,fail:0 ,tTps:62197.80 ,tCount:62260 ,tDuration:1001 ,tFail:0}
+{time:1402240564004 ,avgTps:61143.15 ,count:796573 ,duration:13028 ,fail:0 ,tTps:61684.63 ,tCount:61808 ,tDuration:1002 ,tFail:0}
+{time:1402240565005 ,avgTps:60901.77 ,count:854391 ,duration:14029 ,fail:0 ,tTps:57760.24 ,tCount:57818 ,tDuration:1001 ,tFail:0}
+{time:1402240566006 ,avgTps:60953.76 ,count:916135 ,duration:15030 ,fail:0 ,tTps:61682.32 ,tCount:61744 ,tDuration:1001 ,tFail:0}
+{time:1402240567007 ,avgTps:60982.54 ,count:977611 ,duration:16031 ,fail:0 ,tTps:61414.59 ,tCount:61476 ,tDuration:1001 ,tFail:0}
+{time:1402240568008 ,avgTps:60890.56 ,count:1037088 ,duration:17032 ,fail:0 ,tTps:59417.58 ,tCount:59477 ,tDuration:1001 ,tFail:0}
+{time:1402240569009 ,avgTps:60956.86 ,count:1099235 ,duration:18033 ,fail:0 ,tTps:62084.91 ,tCount:62147 ,tDuration:1001 ,tFail:0}
+{time:1402240570010 ,avgTps:60778.13 ,count:1156851 ,duration:19034 ,fail:0 ,tTps:57558.44 ,tCount:57616 ,tDuration:1001 ,tFail:0}
+{time:1402240571012 ,avgTps:60478.91 ,count:1211574 ,duration:20033 ,fail:0 ,tTps:54777.78 ,tCount:54723 ,tDuration:999 ,tFail:0}
+======> 1402240638777
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=20000}, ExtInfo: null}
+{time:1402240639791 ,avgTps:47039.88 ,count:47181 ,duration:1003 ,fail:0 ,tTps:47039.88 ,tCount:47181 ,tDuration:1003 ,tFail:0}
+{time:1402240640794 ,avgTps:52697.57 ,count:106291 ,duration:2017 ,fail:0 ,tTps:58293.89 ,tCount:59110 ,tDuration:1014 ,tFail:0}
+{time:1402240641796 ,avgTps:52871.20 ,count:159671 ,duration:3020 ,fail:0 ,tTps:53220.34 ,tCount:53380 ,tDuration:1003 ,tFail:0}
+{time:1402240642798 ,avgTps:53383.14 ,count:214707 ,duration:4022 ,fail:0 ,tTps:54926.15 ,tCount:55036 ,tDuration:1002 ,tFail:0}
+{time:1402240643799 ,avgTps:53245.87 ,count:267454 ,duration:5023 ,fail:0 ,tTps:52694.30 ,tCount:52747 ,tDuration:1001 ,tFail:0}
+{time:1402240644801 ,avgTps:52569.79 ,count:316733 ,duration:6025 ,fail:0 ,tTps:49180.64 ,tCount:49279 ,tDuration:1002 ,tFail:0}
+{time:1402240645802 ,avgTps:53014.38 ,count:372479 ,duration:7026 ,fail:0 ,tTps:55690.31 ,tCount:55746 ,tDuration:1001 ,tFail:0}
+{time:1402240646804 ,avgTps:53421.15 ,count:428865 ,duration:8028 ,fail:0 ,tTps:56273.45 ,tCount:56386 ,tDuration:1002 ,tFail:0}
+{time:1402240647805 ,avgTps:53733.97 ,count:485164 ,duration:9029 ,fail:0 ,tTps:56242.76 ,tCount:56299 ,tDuration:1001 ,tFail:0}
+{time:1402240648807 ,avgTps:53727.64 ,count:538942 ,duration:10031 ,fail:0 ,tTps:53670.66 ,tCount:53778 ,tDuration:1002 ,tFail:0}
+{time:1402240649809 ,avgTps:53864.95 ,count:594292 ,duration:11033 ,fail:0 ,tTps:55239.52 ,tCount:55350 ,tDuration:1002 ,tFail:0}
+{time:1402240650811 ,avgTps:53969.67 ,count:649525 ,duration:12035 ,fail:0 ,tTps:55122.75 ,tCount:55233 ,tDuration:1002 ,tFail:0}
+{time:1402240651813 ,avgTps:54142.05 ,count:705850 ,duration:13037 ,fail:0 ,tTps:56212.57 ,tCount:56325 ,tDuration:1002 ,tFail:0}
+{time:1402240652815 ,avgTps:54291.50 ,count:762144 ,duration:14038 ,fail:0 ,tTps:56237.76 ,tCount:56294 ,tDuration:1001 ,tFail:0}
+{time:1402240653816 ,avgTps:54431.71 ,count:818653 ,duration:15040 ,fail:0 ,tTps:56396.21 ,tCount:56509 ,tDuration:1002 ,tFail:0}
+{time:1402240654817 ,avgTps:54445.36 ,count:873358 ,duration:16041 ,fail:0 ,tTps:54650.35 ,tCount:54705 ,tDuration:1001 ,tFail:0}
+{time:1402240655819 ,avgTps:54629.93 ,count:931058 ,duration:17043 ,fail:0 ,tTps:57584.83 ,tCount:57700 ,tDuration:1002 ,tFail:0}
+{time:1402240656820 ,avgTps:54743.18 ,count:987786 ,duration:18044 ,fail:0 ,tTps:56671.33 ,tCount:56728 ,tDuration:1001 ,tFail:0}
+{time:1402240657821 ,avgTps:54840.22 ,count:1044432 ,duration:19045 ,fail:0 ,tTps:56589.41 ,tCount:56646 ,tDuration:1001 ,tFail:0}
+{time:1402240658823 ,avgTps:54884.34 ,count:1099004 ,duration:20024 ,fail:0 ,tTps:55742.59 ,tCount:54572 ,tDuration:979 ,tFail:0}
+======> 1402557029996
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=3000}, ExtInfo: null}
+{time:1402557031008 ,avgTps:79355.58 ,count:79673 ,duration:1004 ,fail:0 ,tTps:79355.58 ,tCount:79673 ,tDuration:1004 ,tFail:0}
+{time:1402557032009 ,avgTps:90832.84 ,count:183119 ,duration:2016 ,fail:0 ,tTps:102219.37 ,tCount:103446 ,tDuration:1012 ,tFail:0}
+{time:1402557033011 ,avgTps:92584.77 ,count:278495 ,duration:3008 ,fail:0 ,tTps:96145.16 ,tCount:95376 ,tDuration:992 ,tFail:0}
+======> 1402557064295
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:10000,INTERVAL:1000,TIMEOUT=3000}, ExtInfo: null}
+{time:1402557065309 ,avgTps:62435.39 ,count:62810 ,duration:1006 ,fail:0 ,tTps:62435.39 ,tCount:62810 ,tDuration:1006 ,tFail:0}
+{time:1402557066311 ,avgTps:72924.54 ,count:99542 ,duration:1365 ,fail:0 ,tTps:102317.55 ,tCount:36732 ,tDuration:359 ,tFail:0}
+{time:1402557067312 ,avgTps:72924.54 ,count:99542 ,duration:1365 ,fail:0 ,tTps:N/A ,tCount:0 ,tDuration:0 ,tFail:0}
+{time:1402557068314 ,avgTps:72924.54 ,count:99542 ,duration:1365 ,fail:0 ,tTps:N/A ,tCount:0 ,tDuration:0 ,tFail:0}
+{time:1402557069316 ,avgTps:22780.55 ,count:99551 ,duration:4370 ,fail:9 ,tTps:3.00 ,tCount:9 ,tDuration:3005 ,tFail:9}
+======> 1402557095609
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=3000}, ExtInfo: null}
+{time:1402557096621 ,avgTps:62044.87 ,count:62231 ,duration:1003 ,fail:0 ,tTps:62044.87 ,tCount:62231 ,tDuration:1003 ,tFail:0}
+{time:1402557097622 ,avgTps:83315.79 ,count:167798 ,duration:2014 ,fail:0 ,tTps:104418.40 ,tCount:105567 ,tDuration:1011 ,tFail:0}
+{time:1402557098624 ,avgTps:90122.38 ,count:270998 ,duration:3007 ,fail:0 ,tTps:103927.49 ,tCount:103200 ,tDuration:993 ,tFail:0}
+======> 1402715405674
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=3000}, ExtInfo: null}
+{time:1402715406687 ,avgTps:39876.49 ,count:40036 ,duration:1004 ,fail:0 ,tTps:39876.49 ,tCount:40036 ,tDuration:1004 ,tFail:0}
+{time:1402715407689 ,avgTps:68741.07 ,count:138582 ,duration:2016 ,fail:0 ,tTps:97377.47 ,tCount:98546 ,tDuration:1012 ,tFail:0}
+{time:1402715408690 ,avgTps:74729.33 ,count:225010 ,duration:3011 ,fail:0 ,tTps:86862.31 ,tCount:86428 ,tDuration:995 ,tFail:0}
+======> 1402715468982
+{StartInfo: {THREAD_POOL_SIZE:10,LOOP_COUNT:-1,INTERVAL:1000,TIMEOUT=30000}, ExtInfo: null}
+{time:1402715469994 ,avgTps:58172.31 ,count:58405 ,duration:1004 ,fail:0 ,tTps:58172.31 ,tCount:58405 ,tDuration:1004 ,tFail:0}
+{time:1402715470996 ,avgTps:78245.66 ,count:157665 ,duration:2015 ,fail:0 ,tTps:98180.02 ,tCount:99260 ,tDuration:1011 ,tFail:0}
+{time:1402715471997 ,avgTps:85490.88 ,count:257926 ,duration:3017 ,fail:0 ,tTps:100060.88 ,tCount:100261 ,tDuration:1002 ,tFail:0}
+{time:1402715472998 ,avgTps:89297.16 ,count:358796 ,duration:4018 ,fail:0 ,tTps:100769.23 ,tCount:100870 ,tDuration:1001 ,tFail:0}
+{time:1402715473999 ,avgTps:91739.59 ,count:460441 ,duration:5019 ,fail:0 ,tTps:101543.45 ,tCount:101645 ,tDuration:1001 ,tFail:0}
+{time:1402715475000 ,avgTps:93585.81 ,count:563293 ,duration:6019 ,fail:0 ,tTps:102852.00 ,tCount:102852 ,tDuration:1000 ,tFail:0}
+{time:1402715476001 ,avgTps:95005.27 ,count:666937 ,duration:7020 ,fail:0 ,tTps:103540.46 ,tCount:103644 ,tDuration:1001 ,tFail:0}
+{time:1402715477002 ,avgTps:95829.72 ,count:768746 ,duration:8022 ,fail:0 ,tTps:101605.79 ,tCount:101809 ,tDuration:1002 ,tFail:0}
+{time:1402715478003 ,avgTps:96672.69 ,count:872181 ,duration:9022 ,fail:0 ,tTps:103435.00 ,tCount:103435 ,tDuration:1000 ,tFail:0}
+{time:1402715479004 ,avgTps:97354.65 ,count:975883 ,duration:10024 ,fail:0 ,tTps:103495.01 ,tCount:103702 ,tDuration:1002 ,tFail:0}
+{time:1402715480005 ,avgTps:97923.54 ,count:1079607 ,duration:11025 ,fail:0 ,tTps:103620.38 ,tCount:103724 ,tDuration:1001 ,tFail:0}
+{time:1402715481006 ,avgTps:98400.72 ,count:1183367 ,duration:12026 ,fail:0 ,tTps:103656.34 ,tCount:103760 ,tDuration:1001 ,tFail:0}
+{time:1402715482007 ,avgTps:98711.75 ,count:1285918 ,duration:13027 ,fail:0 ,tTps:102448.55 ,tCount:102551 ,tDuration:1001 ,tFail:0}
+{time:1402715483008 ,avgTps:99051.04 ,count:1389488 ,duration:14028 ,fail:0 ,tTps:103466.53 ,tCount:103570 ,tDuration:1001 ,tFail:0}
+{time:1402715484010 ,avgTps:99377.58 ,count:1493645 ,duration:15030 ,fail:0 ,tTps:103949.10 ,tCount:104157 ,tDuration:1002 ,tFail:0}
+{time:1402715485012 ,avgTps:99676.46 ,count:1598013 ,duration:16032 ,fail:0 ,tTps:104159.68 ,tCount:104368 ,tDuration:1002 ,tFail:0}
+{time:1402715486014 ,avgTps:99843.02 ,count:1700726 ,duration:17034 ,fail:0 ,tTps:102507.98 ,tCount:102713 ,tDuration:1002 ,tFail:0}
+{time:1402715487015 ,avgTps:99991.69 ,count:1803350 ,duration:18035 ,fail:0 ,tTps:102521.48 ,tCount:102624 ,tDuration:1001 ,tFail:0}
+{time:1402715488016 ,avgTps:100167.16 ,count:1906782 ,duration:19036 ,fail:0 ,tTps:103328.67 ,tCount:103432 ,tDuration:1001 ,tFail:0}
+{time:1402715489017 ,avgTps:100321.80 ,count:2010148 ,duration:20037 ,fail:0 ,tTps:103262.73 ,tCount:103366 ,tDuration:1001 ,tFail:0}
+{time:1402715490018 ,avgTps:100470.48 ,count:2113698 ,duration:21038 ,fail:0 ,tTps:103446.55 ,tCount:103550 ,tDuration:1001 ,tFail:0}
+{time:1402715491020 ,avgTps:100624.84 ,count:2217671 ,duration:22039 ,fail:0 ,tTps:103869.13 ,tCount:103973 ,tDuration:1001 ,tFail:0}
+{time:1402715492021 ,avgTps:100725.62 ,count:2320819 ,duration:23041 ,fail:0 ,tTps:102942.12 ,tCount:103148 ,tDuration:1002 ,tFail:0}
+{time:1402715493022 ,avgTps:100838.79 ,count:2424366 ,duration:24042 ,fail:0 ,tTps:103443.55 ,tCount:103547 ,tDuration:1001 ,tFail:0}
+{time:1402715494023 ,avgTps:100933.72 ,count:2527683 ,duration:25043 ,fail:0 ,tTps:103213.79 ,tCount:103317 ,tDuration:1001 ,tFail:0}
+{time:1402715495024 ,avgTps:101031.33 ,count:2631260 ,duration:26044 ,fail:0 ,tTps:103473.52 ,tCount:103577 ,tDuration:1001 ,tFail:0}
+{time:1402715496025 ,avgTps:101120.21 ,count:2734796 ,duration:27045 ,fail:0 ,tTps:103432.57 ,tCount:103536 ,tDuration:1001 ,tFail:0}
+{time:1402715497026 ,avgTps:101152.68 ,count:2836928 ,duration:28046 ,fail:0 ,tTps:102029.97 ,tCount:102132 ,tDuration:1001 ,tFail:0}
+{time:1402715498027 ,avgTps:101243.05 ,count:2940807 ,duration:29047 ,fail:0 ,tTps:103775.23 ,tCount:103879 ,tDuration:1001 ,tFail:0}
+{time:1402715499028 ,avgTps:101325.08 ,count:3042488 ,duration:30027 ,fail:0 ,tTps:103756.13 ,tCount:101681 ,tDuration:980 ,tFail:0}

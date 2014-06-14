@@ -1,11 +1,11 @@
 package com.hongweiyi.bench.client;
 
 import com.hongweiyi.bench.RecvCounterCallback;
+import com.hongweiyi.bench.ResponseFuture;
 import com.hongweiyi.bench.SimpleProtocol;
 import org.apache.mina.api.IoSession;
 
 import java.nio.ByteBuffer;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @author hongwei.yhw
@@ -48,9 +48,9 @@ public class Mina3Client<T> extends Client<T> {
             @Override
             public void receive(long id) {
                 try {
-                    ArrayBlockingQueue<T> result = responses.get(id);
-                    result.put(callbackPutObj);
-                } catch (InterruptedException e) {
+                    ResponseFuture<T> result = responses.get(id);
+                    result.handleResponse(callbackPutObj);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

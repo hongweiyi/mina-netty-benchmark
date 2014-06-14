@@ -1,5 +1,7 @@
 package com.hongweiyi.bench.client;
 
+import com.hongweiyi.bench.ResponseFuture;
+
 import java.util.concurrent.*;
 
 /**
@@ -8,26 +10,26 @@ import java.util.concurrent.*;
  */
 public abstract class Client<T> {
 
-    protected byte[]                                     data;
-    protected ConcurrentMap<Long, ArrayBlockingQueue<T>> responses = new ConcurrentHashMap<Long, ArrayBlockingQueue<T>>(
-                                                                       1024 * 20);
+    protected byte[]                                 data;
+    protected ConcurrentMap<Long, ResponseFuture<T>> responses = new ConcurrentHashMap<Long, ResponseFuture<T>>(
+                                                                   1024 * 20);
 
     public Client(byte[] data) {
         this.data = data;
     }
 
     public boolean put(long id) {
-        ArrayBlockingQueue<T> responseQueue = new ArrayBlockingQueue<T>(1);
-        responses.put(id, responseQueue);
+        ResponseFuture<T> future = new ResponseFuture<T>();
+        responses.put(id, future);
 
         return true;
     }
 
     public boolean put(long id, T obj) {
         try {
-            ArrayBlockingQueue<T> responseQueue = responses.get(id);
-            responseQueue.put(obj);
-        } catch (InterruptedException e) {
+            ResponseFuture<T> future = responses.get(id);
+            future.handleResponse(obj);
+        } catch (Exception e) {
             return false;
         }
         return true;
@@ -35,16 +37,20 @@ public abstract class Client<T> {
 
     public T poll(long id, long timeout, TimeUnit unit) {
         try {
-            ArrayBlockingQueue<T> responseQueue = responses.get(id);
-            T t = responseQueue.poll(timeout, unit);
+            ResponseFuture<T> future = responses.get(id);
+            T t = future.get(timeout, unit);
             if (t != null) {
                 responses.remove(id);
             }
             return t;
         } catch (InterruptedException e) {
             e.printStackTrace();
-            return null;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
     public abstract void send();
